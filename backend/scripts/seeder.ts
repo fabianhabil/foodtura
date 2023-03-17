@@ -6,6 +6,7 @@ import logger from '../src/utils/logger.util';
 
 import { appDataSource } from '../src/database/datasource';
 import { AuthService } from '../src/services/auth.service';
+import { User, UserRole } from '../src/database/entities/user.entity';
 
 // -------------------------------------------------------------------- //
 
@@ -14,6 +15,17 @@ const AUTH_SERVICE = new AuthService();
 
 async function insertData() {
     const { hashPassword } = AUTH_SERVICE;
+    await User.save(
+        User.create({
+            name: 'Super Admin',
+            email: 'admin@admin.com',
+            password: await hashPassword('123'),
+            alamat: '-',
+            tglLahir: new Date('2003-03-03'),
+            phone: '-',
+            role: UserRole.ADMIN
+        })
+    );
 }
 
 // -------------------------------------------------------------------- //
