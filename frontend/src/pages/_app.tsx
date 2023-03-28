@@ -12,7 +12,6 @@ import theme from '@/styles/theme';
 import type { NextPage } from 'next';
 // eslint-disable-next-line import/extensions
 import '@/styles/globals.css';
-import 'react-datepicker/dist/react-datepicker.css';
 
 type Page<P = unknown> = NextPage<P> & {
     getLayout?: (_page: ReactNode) => ReactNode;
@@ -47,7 +46,7 @@ const MyApp: FunctionComponent<MyAppProps> = (
             {getLayout(
                 <>
                     <Head>
-                        <title>Fortune Bookstore</title>
+                        <title>Foodtura</title>
                         <meta
                             name='description'
                             content='Fortune Bookstore is a fictional bookstore created for final project database'

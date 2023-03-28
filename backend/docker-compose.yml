@@ -5,7 +5,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: fortune-bookstore
+      POSTGRES_DB: foodtura
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678
+      POSTGRES_PASSWORD: 1234
       PGDATA: /var/lib/postgresql/data/pgdata
