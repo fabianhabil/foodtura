@@ -1,6 +1,6 @@
 import Navbar from '@/components/molecules/Navbar/Navbar';
 import type { ComponentWithChildren } from '@/types/component';
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
     return (
@@ -18,10 +18,22 @@ const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
                         position: 'relative'
                     }}
                 >
-                    <div>
-                        <Navbar />
-                    </div>
-                    <div>{children}</div>
+                    <Navbar />
+                    <Container maxWidth='xl' sx={{ pt: 2 }}>
+                        {children}
+                    </Container>
+                    <Box
+                        component='div'
+                        sx={{
+                            position: 'fixed',
+                            bottom: 0,
+                            maxWidth: '600px',
+                            width: '100%',
+                            backgroundColor: 'red'
+                        }}
+                    >
+                        asd
+                    </Box>
                 </Box>
             </Box>
         </>
