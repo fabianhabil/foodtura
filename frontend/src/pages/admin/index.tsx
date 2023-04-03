@@ -1,11 +1,15 @@
-import AdminLayout from '@/components/templates/AdminLayout/AdminLayout';
+import AdminLayout from '@/components/templates/Admin/AdminLayout/AdminLayout';
 
-const Index = () => {
+const Home = () => {
+    return <>test admin layout</>;
+};
+
+Home.getLayout = function getLayout(page: React.ReactNode) {
     return (
         <>
-            <AdminLayout>test admin layout</AdminLayout>
+            <AdminLayout>{page}</AdminLayout>
         </>
     );
 };
 
-export default Index;
+export default Home;
