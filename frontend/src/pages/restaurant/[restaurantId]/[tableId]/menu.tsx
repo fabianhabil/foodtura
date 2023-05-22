@@ -1,7 +1,12 @@
+import Menu from '@/components/templates/Store/Menu/Menu';
 import StoreLayout from '@/components/templates/Store/StoreLayout/StoreLayout';
 
 const Home = () => {
-    return <>ini page menu, udah masuk restaurant id dan table id</>;
+    return (
+        <>
+            <Menu />
+        </>
+    );
 };
 
 Home.getLayout = function getLayout(page: React.ReactNode) {

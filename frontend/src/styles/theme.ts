@@ -16,6 +16,7 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: [
+            'Lexend',
             'Inter',
             'Open Sans',
             '-apple-system',

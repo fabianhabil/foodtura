@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Home = () => {
     return (
         <>
-            gak ada restaurant id, pergi sana
+            gak ada restaurant id
             <br />
             <Link href='/restaurant/restaurantid'>
                 <p>click sini buat contoh restaurant id, tapi masih mockup</p>

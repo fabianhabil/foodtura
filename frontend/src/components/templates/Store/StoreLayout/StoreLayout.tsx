@@ -1,12 +1,10 @@
-import ScrollTop from '@/components/atoms/ScrollToTop/ScrollToTop';
-import Footer from '@/components/molecules/Footer/Footer';
-import Navbar from '@/components/molecules/Navbar/Navbar';
+import Footer from '@/components/molecules/Store/Footer/Footer';
+import Navbar from '@/components/molecules/Store/Navbar/Navbar';
 import type { ComponentWithChildren } from '@/types/component';
-import { Box, Container, Fab } from '@mui/material';
-import { MdKeyboardArrowUp } from 'react-icons/md';
+import { Box, Container } from '@mui/material';
 import { StoreContextProvider } from '@/contexts/StoreContext/StoreContext';
 import { useState } from 'react';
-import Sidebar from '@/components/molecules/Sidebar/Sidebar';
+import Sidebar from '@/components/molecules/Store/Sidebar/Sidebar';
 
 const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -27,15 +25,10 @@ const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
                     }}
                 >
                     <Navbar setOpenSidebar={setOpen} />
-                    <Container maxWidth='xl' sx={{ py: 2 }}>
+                    <Container maxWidth='xl' sx={{ py: 2, minHeight: '57.5vh' }}>
                         {children}
                     </Container>
                     <Footer />
-                    <ScrollTop>
-                        <Fab size='small' sx={{ m: 0, p: 0 }}>
-                            <MdKeyboardArrowUp />
-                        </Fab>
-                    </ScrollTop>
                     <Sidebar open={open} setOpen={setOpen} />
                 </Box>
             </Box>

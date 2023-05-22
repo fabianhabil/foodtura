@@ -1,9 +1,17 @@
 export interface StoreContextType {
-    color: {
-        primary: string;
-        // Secondary -> Text
-        secondary: string;
-        // Third -> Button ?
-        third: string;
-    };
+    color: ColorContextType;
+}
+
+export interface ColorContextType {
+    primary: string;
+    // Secondary -> Text
+    secondary: string;
+    // Third -> Button ?
+    third: string;
+}
+
+export interface MenuType {
+    name: string;
+    description: string;
+    price: number;
 }

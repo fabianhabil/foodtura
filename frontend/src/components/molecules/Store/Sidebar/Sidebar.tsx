@@ -1,6 +1,6 @@
 // import SidebarButton from '@/components/atoms/Sidebar/Button/SidebarButton';
-import type { SidebarButtonType } from '@/components/atoms/Sidebar/Button/SidebarButton';
-import SidebarButton from '@/components/atoms/Sidebar/Button/SidebarButton';
+import type { SidebarButtonType } from '@/components/atoms/Store/Sidebar/Button/SidebarButton';
+import SidebarButton from '@/components/atoms/Store/Sidebar/Button/SidebarButton';
 import SidebarButtonList from '@/components/constants/Sidebar/SidebarButtonList';
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
 import PathRouteList from '@/helper/pathRouteList';

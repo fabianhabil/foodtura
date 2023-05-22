@@ -44,6 +44,7 @@ const Navbar = (props: any) => {
                     sx={{
                         backgroundColor: color.primary,
                         py: 0.5,
+                        pb: 0,
                         color: 'black'
                     }}
                     elevation={0}
@@ -75,7 +76,17 @@ const Navbar = (props: any) => {
                                         />
                                     </IconButton>
                                 </Grid>
-                                <Grid item>LOGO RESTORAN DUMMY</Grid>
+                                <Grid item>
+                                    <img
+                                        src='/icon/foodtura.png'
+                                        alt='logo'
+                                        style={{
+                                            width: 'auto',
+                                            height: '100%',
+                                            maxHeight: '80px'
+                                        }}
+                                    />
+                                </Grid>
                                 {pathRouteList.length > 2 ? (
                                     <Grid item>
                                         <IconButton
