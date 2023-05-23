@@ -25,7 +25,7 @@ const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
                     }}
                 >
                     <Navbar setOpenSidebar={setOpen} />
-                    <Container maxWidth='xl' sx={{ py: 2, minHeight: '57.5vh' }}>
+                    <Container maxWidth='xl' sx={{ py: 2, minHeight: '55.2vh' }}>
                         {children}
                     </Container>
                     <Footer />

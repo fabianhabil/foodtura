@@ -1,12 +1,5 @@
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
-import {
-    Box,
-    Button,
-    Grid,
-    IconButton,
-    Modal,
-    Typography
-} from '@mui/material';
+import { Box, Button, Grid, IconButton, Modal, TextField, Typography } from '@mui/material';
 import { IoChevronBack } from 'react-icons/io5';
 import { useContext, useState } from 'react';
 
@@ -25,9 +18,11 @@ const MenuModal = ({
 }) => {
     const { color } = useContext(StoreContext)!;
     const [quantity, setQuantity] = useState<number>(0);
+    const [note, setNote] = useState<string>('');
 
     const closeModal = () => {
         setQuantity(() => 0);
+        setNote(() => '');
         handleClose();
     };
 
@@ -45,7 +40,7 @@ const MenuModal = ({
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 400,
+                        width: 370,
                         bgcolor: 'background.paper',
                         outline: 'none'
                     }}
@@ -59,20 +54,10 @@ const MenuModal = ({
                                 borderBottom: `2px solid ${color.third}`
                             }}
                         >
-                            <Grid
-                                container
-                                direction='row'
-                                spacing={1}
-                                alignItems='center'
-                            >
+                            <Grid container direction='row' spacing={1} alignItems='center'>
                                 <Grid item>
-                                    <IconButton
-                                        sx={{ p: 0 }}
-                                        onClick={handleClose}
-                                    >
-                                        <IoChevronBack
-                                            style={{ fontSize: '36px' }}
-                                        />
+                                    <IconButton sx={{ p: 0 }} onClick={handleClose}>
+                                        <IoChevronBack style={{ fontSize: '36px' }} />
                                     </IconButton>
                                 </Grid>
                                 <Grid item>
@@ -105,17 +90,9 @@ const MenuModal = ({
                                     </div>
                                 </Grid>
                                 <Grid item>
-                                    <Grid
-                                        container
-                                        direction='column'
-                                        spacing={1}
-                                    >
+                                    <Grid container direction='column' spacing={1}>
                                         <Grid item>
-                                            <Grid
-                                                container
-                                                direction='row'
-                                                justifyContent='space-between'
-                                            >
+                                            <Grid container direction='row' justifyContent='space-between'>
                                                 <Grid item>
                                                     <Typography
                                                         sx={{
@@ -150,6 +127,66 @@ const MenuModal = ({
                                                 {menu.description}
                                             </Typography>
                                         </Grid>
+                                        <Grid item>
+                                            <Grid
+                                                container
+                                                direction='row'
+                                                alignItems='center'
+                                                justifyContent='space-between'
+                                            >
+                                                <Grid item>
+                                                    <Typography sx={{ color: color.secondary, fontWeight: 500 }}>
+                                                        Notes :
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs sx={{ ml: 4 }}>
+                                                    <TextField
+                                                        fullWidth
+                                                        defaultValue={note}
+                                                        onChange={(e) => setNote(e.target.value)}
+                                                        sx={{
+                                                            border: `solid 1px ${color.third}`,
+                                                            borderRadius: '4px',
+                                                            input: { fontSize: '16px', height: '0.5px' },
+                                                            backgroundColor: 'white',
+                                                            '& :-webkit-autofill': {
+                                                                transitionDelay: '999999999999999s'
+                                                            },
+                                                            '& .MuiOutlinedInput-root': {
+                                                                '& fieldset': {
+                                                                    borderRadius: '4px'
+                                                                },
+                                                                '&:hover fieldset': {
+                                                                    borderRadius: '4px'
+                                                                },
+                                                                '&.Mui-focused fieldset': {
+                                                                    borderRadius: '4px'
+                                                                }
+                                                            },
+                                                            '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                                                                {
+                                                                    borderColor: 'transparent'
+                                                                },
+                                                            '&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline':
+                                                                {
+                                                                    borderColor: 'transparent'
+                                                                },
+                                                            '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                                                {
+                                                                    borderColor: 'transparent'
+                                                                },
+                                                            '& .MuiFormLabel-root': {
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                verticalAlign: 'middle',
+                                                                justifyContent: 'center',
+                                                                fontSize: '18px'
+                                                            }
+                                                        }}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item>
@@ -172,27 +209,17 @@ const MenuModal = ({
                                                         sx={{
                                                             width: '25px',
                                                             height: '25px',
-                                                            verticalAlign:
-                                                                'middle',
-                                                            backgroundColor:
-                                                                color.third,
+                                                            verticalAlign: 'middle',
+                                                            backgroundColor: color.third,
                                                             p: 0
                                                         }}
                                                         onClick={() => {
-                                                            setQuantity(
-                                                                (state) => {
-                                                                    if (
-                                                                        state <=
-                                                                        1
-                                                                    ) {
-                                                                        return 0;
-                                                                    }
-                                                                    return (
-                                                                        state -
-                                                                        1
-                                                                    );
+                                                            setQuantity((state) => {
+                                                                if (state <= 1) {
+                                                                    return 0;
                                                                 }
-                                                            );
+                                                                return state - 1;
+                                                            });
                                                         }}
                                                     >
                                                         -
@@ -204,33 +231,25 @@ const MenuModal = ({
                                                         sx={{
                                                             width: '25px',
                                                             height: '25px',
-                                                            verticalAlign:
-                                                                'middle',
-                                                            backgroundColor:
-                                                                color.third,
+                                                            verticalAlign: 'middle',
+                                                            backgroundColor: color.third,
                                                             p: 0
                                                         }}
-                                                        onClick={() =>
-                                                            setQuantity(
-                                                                (state) =>
-                                                                    state + 1
-                                                            )
-                                                        }
+                                                        onClick={() => setQuantity((state) => state + 1)}
                                                     >
                                                         +
                                                     </IconButton>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid item xs>
+                                        <Grid item xs sx={{ ml: 4 }}>
                                             <Button
                                                 sx={{
                                                     width: '100%',
                                                     backgroundColor: '#B2372E',
                                                     color: 'white',
                                                     '&:hover': {
-                                                        backgroundColor:
-                                                            '#B2372E'
+                                                        backgroundColor: '#B2372E'
                                                     }
                                                 }}
                                             >

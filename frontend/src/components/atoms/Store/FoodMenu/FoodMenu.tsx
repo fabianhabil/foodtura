@@ -1,6 +1,7 @@
 import type { ColorContextType, MenuType } from '@/types/store';
 import { Box, Grid, Typography } from '@mui/material';
 import type { Dispatch, SetStateAction } from 'react';
+import { GiChiliPepper } from 'react-icons/gi';
 
 const FoodMenu = ({
     data,
@@ -61,14 +62,28 @@ const FoodMenu = ({
                             sx={{ width: '100%' }}
                         >
                             <Grid item>
-                                <Typography
-                                    sx={{
-                                        color: color.third,
-                                        fontWeight: 600
-                                    }}
+                                <Grid
+                                    container
+                                    direction='row'
+                                    spacing={1}
+                                    alignItems='center'
                                 >
-                                    {data.name}
-                                </Typography>
+                                    <Grid item>
+                                        <Typography
+                                            sx={{
+                                                color: color.third,
+                                                fontWeight: 600
+                                            }}
+                                        >
+                                            {data.name}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        {data.isSpicy ? (
+                                            <GiChiliPepper />
+                                        ) : null}
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item>
                                 <Typography

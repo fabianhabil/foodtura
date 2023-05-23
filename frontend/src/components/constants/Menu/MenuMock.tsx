@@ -1,4 +1,9 @@
-export const menuCategory: string[] = ['Appetizer', 'La Pizza', 'Beverages', 'Desert'];
+export const menuCategory: string[] = [
+    'Appetizer',
+    'La Pizza',
+    'Beverages',
+    'Desert'
+];
 
 export const menu = [
     [
@@ -21,12 +26,14 @@ export const menu = [
         {
             name: 'Crab Dip',
             description: 'Served with sliced Italian bread.',
-            price: 50000
+            price: 50000,
+            isSpicy: true
         },
         {
             name: 'Chicken Stips',
             description: 'With blue cheese dressing and celery sticks.',
-            price: 450000
+            price: 450000,
+            isSpicy: true
         }
     ],
     [

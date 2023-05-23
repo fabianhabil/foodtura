@@ -14,4 +14,5 @@ export interface MenuType {
     name: string;
     description: string;
     price: number;
+    isSpicy?: boolean;
 }

@@ -12,9 +12,6 @@ const Home = () => {
         let mounted = true;
 
         if (mounted && pathRouteList[1] !== '[restaurantId]') {
-            console.log(
-                `/restaurant/${pathRouteList[1]}/${pathRouteList[2]}/menu`
-            );
             router.push({
                 pathname: `/restaurant/${pathRouteList[1]}/${pathRouteList[2]}/menu`
             });

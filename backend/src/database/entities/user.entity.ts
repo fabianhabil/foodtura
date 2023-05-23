@@ -1,18 +1,16 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { TrackingEmbed } from './embedded/tracking.embed';
 
-export enum UserRole{
-    USER,
-    ADMIN
+export enum UserRole {
+    OWNER
 }
 
-@Entity('users')
+@Entity('User')
 export class User extends BaseEntity {
-
     @PrimaryGeneratedColumn({ name: 'id_user' })
     userId!: number;
 
-    @Column({ name: 'nama', length: 64 })
+    @Column({ length: 64 })
     name!: string;
 
     @Column({ length: 64, unique: true })
@@ -41,5 +39,4 @@ export class User extends BaseEntity {
         delete cloned.password;
         return cloned;
     }
-
 }

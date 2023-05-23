@@ -1,18 +1,20 @@
 import { Grid } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const Home = () => {
     return (
         <>
-            <Grid
-                container
-                direction='column'
-                sx={{ minHeight: '100vh' }}
-                alignItems='center'
-                justifyContent='center'
-            >
+            <Grid container direction='column' sx={{ minHeight: '100vh' }} alignItems='center' justifyContent='center'>
                 <Grid item>
-                    <h2>Landing Page belum jadi</h2>
+                    <Image
+                        alt='logo'
+                        src='/icon/foodtura-2.png'
+                        width='0'
+                        height='0'
+                        sizes='100%'
+                        style={{ width: 'auto', height: '100%', maxHeight: '300px' }}
+                    />
                 </Grid>
                 <Grid item>
                     <Link href='/restaurant'>Restaurant Page</Link>

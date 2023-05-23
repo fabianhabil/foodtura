@@ -1,17 +1,10 @@
-import {
-    AppBar,
-    Container,
-    Grid,
-    IconButton,
-    Slide,
-    Toolbar,
-    useScrollTrigger
-} from '@mui/material';
+import { AppBar, Container, Grid, IconButton, Slide, Toolbar, useScrollTrigger } from '@mui/material';
 import { FiMenu } from 'react-icons/fi';
-import { BsBasket2Fill } from 'react-icons/bs';
+import { BsCart } from 'react-icons/bs';
 import { useContext } from 'react';
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
 import PathRouteList from '@/helper/pathRouteList';
+import Image from 'next/image';
 
 interface Props {
     window?: () => Window;
@@ -51,12 +44,7 @@ const Navbar = (props: any) => {
                 >
                     <Toolbar disableGutters>
                         <Container maxWidth='xl'>
-                            <Grid
-                                container
-                                direction='row'
-                                justifyContent='space-between'
-                                alignItems='center'
-                            >
+                            <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                                 <Grid item>
                                     <IconButton
                                         sx={{
@@ -64,27 +52,19 @@ const Navbar = (props: any) => {
                                             p: 0,
                                             m: 0
                                         }}
-                                        onClick={() =>
-                                            setOpenSidebar(
-                                                (state: any) => !state
-                                            )
-                                        }
+                                        onClick={() => setOpenSidebar((state: any) => !state)}
                                     >
-                                        <FiMenu
-                                            style={{ color: color.third }}
-                                            size={'28px'}
-                                        />
+                                        <FiMenu style={{ color: color.third }} size={'28px'} />
                                     </IconButton>
                                 </Grid>
                                 <Grid item>
-                                    <img
-                                        src='/icon/foodtura.png'
+                                    <Image
                                         alt='logo'
-                                        style={{
-                                            width: 'auto',
-                                            height: '100%',
-                                            maxHeight: '80px'
-                                        }}
+                                        src='/icon/foodtura.png'
+                                        width='0'
+                                        height='0'
+                                        sizes='100%'
+                                        style={{ width: 'auto', height: '100%', maxHeight: '80px' }}
                                     />
                                 </Grid>
                                 {pathRouteList.length > 2 ? (
@@ -96,10 +76,7 @@ const Navbar = (props: any) => {
                                                 m: 0
                                             }}
                                         >
-                                            <BsBasket2Fill
-                                                style={{ color: color.third }}
-                                                size={'28px'}
-                                            />
+                                            <BsCart style={{ color: color.third }} size={'28px'} />
                                         </IconButton>
                                     </Grid>
                                 ) : (

@@ -12,18 +12,15 @@ const Menu = () => {
     const [selectedMenu, setSelectedMenu] = useState<MenuType>({
         name: '',
         description: '',
-        price: 0
+        price: 0,
+        isSpicy: false
     });
     const [openModal, setOpenModal] = useState<boolean>(false);
     const { color } = useContext(StoreContext)!;
 
     return (
         <>
-            <MenuModal
-                open={openModal}
-                handleClose={() => setOpenModal((state) => !state)}
-                menu={selectedMenu}
-            />
+            <MenuModal open={openModal} handleClose={() => setOpenModal((state) => !state)} menu={selectedMenu} />
             <Grid container direction='column' spacing={2}>
                 <Grid item container direction='row'>
                     {menuCategory.map((data, index) => {
@@ -40,28 +37,21 @@ const Menu = () => {
                         );
                     })}
                 </Grid>
-                <Grid
-                    item
-                    container
-                    direction='row'
-                    justifyContent='space-between'
-                >
+                <Grid item container direction='row' justifyContent='space-between'>
                     <Grid item>Search Bar</Grid>
                     <Grid item>Sort By</Grid>
                 </Grid>
                 <Grid item container direction='column' spacing={3}>
                     {menu[selectedCategory].map((data) => {
                         return (
-                            <>
-                                <Grid item key={data.name} container>
-                                    <FoodMenu
-                                        color={color}
-                                        data={data}
-                                        setOpenModal={setOpenModal}
-                                        setSelectedMenu={setSelectedMenu}
-                                    />
-                                </Grid>
-                            </>
+                            <Grid item key={data.name} container>
+                                <FoodMenu
+                                    color={color}
+                                    data={data}
+                                    setOpenModal={setOpenModal}
+                                    setSelectedMenu={setSelectedMenu}
+                                />
+                            </Grid>
                         );
                     })}
                 </Grid>
