@@ -9,6 +9,8 @@ const LoadingIcon = () => {
                 y='0px'
                 viewBox='0 0 100 100'
                 enableBackground='new 0 0 0 0'
+                width={'200px'}
+                height={'200px'}
             >
                 <path
                     fill='black'
