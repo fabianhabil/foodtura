@@ -11,7 +11,9 @@ interface SidebarButtonType {
 }
 
 const SidebarButton = ({ data }: { data: SidebarButtonType }) => {
-    const { color } = useContext(StoreContext)!;
+    const {
+        storeInfo: { config }
+    } = useContext(StoreContext)!;
 
     return (
         <>
@@ -34,7 +36,7 @@ const SidebarButton = ({ data }: { data: SidebarButtonType }) => {
                         <Typography
                             sx={{
                                 verticalAlign: 'middle',
-                                color: color.third,
+                                color: config.thirdColor,
                                 fontWeight: 600,
                                 fontSize: '16px'
                             }}
