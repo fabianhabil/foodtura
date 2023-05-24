@@ -1,8 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TrackingEmbed } from './embedded/tracking.embed';
+import { Merchant } from './merchant.entity';
+import { Transaction } from './transaction.entity';
 
 export enum UserRole {
-    OWNER
+    OWNER,
+    OFFICER
 }
 
 @Entity('User')
@@ -16,23 +19,21 @@ export class User extends BaseEntity {
     @Column({ length: 64, unique: true })
     email!: string;
 
-    @Column({ length: 64 })
+    @Column({ length: 64, select: false })
     password!: string;
 
-    @Column({ length: 64 })
-    alamat!: string;
-
-    @Column({ name: 'tgl_lahir', type: 'date' })
-    tglLahir!: Date;
-
-    @Column({ name: 'no_telp', length: 20 })
-    phone!: string;
-
-    @Column({ type: 'enum', default: UserRole.USER, enum: UserRole })
+    @Column({ type: 'enum', default: UserRole.OWNER, enum: UserRole })
     role!: UserRole;
 
     @Column(() => TrackingEmbed, { prefix: false })
     track!: TrackingEmbed;
+
+    @ManyToOne(() => Merchant, { nullable: true })
+    @JoinColumn({ name: 'id_merchant' })
+    merchant!: Merchant;
+
+    @OneToMany(() => Transaction, (transaction) => transaction)
+    transaction!: Transaction[];
 
     toJSON() {
         const cloned = { ...this } as Record<string, unknown>;
