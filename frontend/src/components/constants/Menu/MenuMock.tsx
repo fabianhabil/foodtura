@@ -1,17 +1,12 @@
-export const menuCategory: string[] = [
-    'Appetizer',
-    'La Pizza',
-    'Beverages',
-    'Desert'
-];
+export const menuCategory: string[] = ['Appetizer', 'La Pizza', 'Beverages', 'Desert'];
 
 export const menu = [
     [
         {
             name: 'Fried Calamari',
-            description:
-                'Fresh, lightly tossed in flour and fried served with sauce and lemon.',
-            price: 40000
+            description: 'Fresh, lightly tossed in flour and fried served with sauce and lemon.',
+            price: 40000,
+            isMerchantFavorite: true
         },
         {
             name: 'Bufallo Shrimp',
@@ -27,7 +22,8 @@ export const menu = [
             name: 'Crab Dip',
             description: 'Served with sliced Italian bread.',
             price: 50000,
-            isSpicy: true
+            isSpicy: true,
+            isMerchantFavorite: true
         },
         {
             name: 'Chicken Stips',
@@ -117,4 +113,13 @@ export const menu = [
             price: 35000
         }
     ]
+];
+
+export const SortMenu = [
+    'Price Ascending',
+    'Price Descending',
+    'Alphabetically Ascending',
+    'Alphabetically Descending',
+    'Favorite Only',
+    'Spicy Only'
 ];

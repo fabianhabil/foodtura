@@ -1,7 +1,9 @@
-import type { ColorContextType, MenuType } from '@/types/store';
+import hexToRgbA from '@/helper/hexToRGBA';
+import type { ColorContextType, FoodType } from '@/types/store';
 import { Box, Grid, Typography } from '@mui/material';
 import type { Dispatch, SetStateAction } from 'react';
 import { GiChiliPepper } from 'react-icons/gi';
+import { CiHeart } from 'react-icons/ci';
 
 const FoodMenu = ({
     data,
@@ -9,8 +11,8 @@ const FoodMenu = ({
     setOpenModal,
     color
 }: {
-    data: MenuType;
-    setSelectedMenu: Dispatch<SetStateAction<MenuType>>;
+    data: FoodType;
+    setSelectedMenu: Dispatch<SetStateAction<FoodType>>;
     setOpenModal: Dispatch<SetStateAction<boolean>>;
     color: ColorContextType;
 }) => {
@@ -30,13 +32,13 @@ const FoodMenu = ({
                     justifyContent='space-between'
                     alignItems='center'
                     sx={{
-                        backgroundColor: 'rgba(246,220,146,0.3)',
+                        backgroundColor: hexToRgbA(color.primary, '0.3'),
                         p: 2,
                         '&:hover': {
                             cursor: 'pointer'
                         },
-                        border: '2px solid #CC7930',
-                        boxShadow: '2px 2px 2px #9E5719',
+                        border: `2px solid ${color.secondary}`,
+                        boxShadow: `2px 2px 2px ${color.secondary}`,
                         borderRadius: '5px'
                     }}
                 >
@@ -55,19 +57,10 @@ const FoodMenu = ({
                             img
                         </div>
                     </Grid>
-                    <Grid item xs={7} sm={9}>
-                        <Grid
-                            container
-                            direction='column'
-                            sx={{ width: '100%' }}
-                        >
+                    <Grid item xs={6} sm={8}>
+                        <Grid container direction='column' sx={{ width: '100%' }}>
                             <Grid item>
-                                <Grid
-                                    container
-                                    direction='row'
-                                    spacing={1}
-                                    alignItems='center'
-                                >
+                                <Grid container direction='row' spacing={1} alignItems='center'>
                                     <Grid item>
                                         <Typography
                                             sx={{
@@ -78,11 +71,16 @@ const FoodMenu = ({
                                             {data.name}
                                         </Typography>
                                     </Grid>
-                                    <Grid item>
-                                        {data.isSpicy ? (
-                                            <GiChiliPepper />
-                                        ) : null}
-                                    </Grid>
+                                    {data.isSpicy === true ? (
+                                        <Grid item>
+                                            <GiChiliPepper style={{ fontSize: '20px' }} />
+                                        </Grid>
+                                    ) : null}
+                                    {data.isMerchantFavorite === true ? (
+                                        <Grid item>
+                                            <CiHeart style={{ fontSize: '20px' }} />
+                                        </Grid>
+                                    ) : null}
                                 </Grid>
                             </Grid>
                             <Grid item>
@@ -99,7 +97,7 @@ const FoodMenu = ({
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={2} sm={1}>
                         <Typography
                             sx={{
                                 color: color.third,

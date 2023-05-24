@@ -16,7 +16,10 @@ const MenuModal = ({
         price: number;
     };
 }) => {
-    const { color } = useContext(StoreContext)!;
+    const {
+        storeInfo: { config },
+        addItemToCart
+    } = useContext(StoreContext)!;
     const [quantity, setQuantity] = useState<number>(0);
     const [note, setNote] = useState<string>('');
 
@@ -51,7 +54,7 @@ const MenuModal = ({
                             sx={{
                                 p: 2,
                                 pl: 0.5,
-                                borderBottom: `2px solid ${color.third}`
+                                borderBottom: `2px solid ${config.thirdColor}`
                             }}
                         >
                             <Grid container direction='row' spacing={1} alignItems='center'>
@@ -63,7 +66,7 @@ const MenuModal = ({
                                 <Grid item>
                                     <Typography
                                         sx={{
-                                            color: color.third,
+                                            color: config.thirdColor,
                                             fontSize: '24px'
                                         }}
                                     >
@@ -96,7 +99,7 @@ const MenuModal = ({
                                                 <Grid item>
                                                     <Typography
                                                         sx={{
-                                                            color: color.secondary,
+                                                            color: config.secondaryColor,
                                                             fontWeight: 600,
                                                             fontSize: '20px'
                                                         }}
@@ -107,7 +110,7 @@ const MenuModal = ({
                                                 <Grid item>
                                                     <Typography
                                                         sx={{
-                                                            color: color.secondary,
+                                                            color: config.secondaryColor,
                                                             fontWeight: 600,
                                                             fontSize: '20px'
                                                         }}
@@ -135,7 +138,7 @@ const MenuModal = ({
                                                 justifyContent='space-between'
                                             >
                                                 <Grid item>
-                                                    <Typography sx={{ color: color.secondary, fontWeight: 500 }}>
+                                                    <Typography sx={{ color: config.secondaryColor, fontWeight: 500 }}>
                                                         Notes :
                                                     </Typography>
                                                 </Grid>
@@ -145,7 +148,7 @@ const MenuModal = ({
                                                         defaultValue={note}
                                                         onChange={(e) => setNote(e.target.value)}
                                                         sx={{
-                                                            border: `solid 1px ${color.third}`,
+                                                            border: `solid 1px ${config.thirdColor}`,
                                                             borderRadius: '4px',
                                                             input: { fontSize: '16px', height: '0.5px' },
                                                             backgroundColor: 'white',
@@ -210,7 +213,7 @@ const MenuModal = ({
                                                             width: '25px',
                                                             height: '25px',
                                                             verticalAlign: 'middle',
-                                                            backgroundColor: color.third,
+                                                            backgroundColor: config.thirdColor,
                                                             p: 0
                                                         }}
                                                         onClick={() => {
@@ -232,7 +235,7 @@ const MenuModal = ({
                                                             width: '25px',
                                                             height: '25px',
                                                             verticalAlign: 'middle',
-                                                            backgroundColor: color.third,
+                                                            backgroundColor: config.thirdColor,
                                                             p: 0
                                                         }}
                                                         onClick={() => setQuantity((state) => state + 1)}
@@ -246,11 +249,19 @@ const MenuModal = ({
                                             <Button
                                                 sx={{
                                                     width: '100%',
-                                                    backgroundColor: '#B2372E',
-                                                    color: 'white',
+                                                    backgroundColor: config.primaryColor,
+                                                    color: config.secondaryColor,
+                                                    fontWeight: 'bold',
+                                                    transition: '0.3s all',
                                                     '&:hover': {
-                                                        backgroundColor: '#B2372E'
+                                                        backgroundColor: config.primaryColor,
+                                                        opacity: 0.8,
                                                     }
+                                                }}
+                                                disabled={quantity === 0}
+                                                onClick={() => {
+                                                    addItemToCart(menu, quantity, note);
+                                                    closeModal();
                                                 }}
                                             >
                                                 Add To Cart
