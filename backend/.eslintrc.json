@@ -13,15 +13,9 @@
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
-        "project": [
-            "./tsconfig.base.json",
-            "./tsconfig.json"
-        ]
+        "project": ["./tsconfig.base.json", "./tsconfig.json"]
     },
-    "plugins": [
-        "@typescript-eslint",
-        "import"
-    ],
+    "plugins": ["@typescript-eslint", "import"],
     "rules": {
         // typescript
         "@typescript-eslint/no-namespace": "off",
@@ -151,15 +145,6 @@
                     "FunctionExpression > .params > :matches(Decorator, :not(:first-child))",
                     "ClassBody.body > PropertyDefinition[decorators.length > 0] > .key"
                 ]
-            }
-        ],
-        "max-len": [
-            "error",
-            {
-                // urls can be long, although make it short if possible
-                "ignoreUrls": true,
-                // when making paragraphs, the text can be long
-                "ignoreTemplateLiterals": true
             }
         ],
         "space-before-function-paren": [
