@@ -26,7 +26,9 @@ const Home = () => {
 
     return (
         <>
-            <LoadingIcon />
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <LoadingIcon />
+            </div>
         </>
     );
 };

@@ -8,14 +8,13 @@ const style = {
 };
 
 const Footer = () => {
-    const { color } = useContext(StoreContext)!;
+    const {
+        storeInfo: { config }
+    } = useContext(StoreContext)!;
 
     return (
         <>
-            <Box
-                component='div'
-                sx={{ minHeight: '250px', backgroundColor: color.secondary }}
-            >
+            <Box component='div' sx={{ minHeight: '250px', backgroundColor: config.secondaryColor }}>
                 {/* <Grid container direction='row' sx={{ minHeight: '250px' }}>
                     <Grid item container direction='column' spacing={1} xs={4}>
                         <Grid item>
@@ -60,9 +59,7 @@ const Footer = () => {
                             <Typography sx={style.title}>ADDRESS</Typography>
                         </Grid>
                         <Grid item>
-                            <Typography sx={style.content}>
-                                JL. Palmerah No. 103
-                            </Typography>
+                            <Typography sx={style.content}>JL. Palmerah No. 103</Typography>
                         </Grid>
                     </Grid>
                     <Grid item container direction='column' spacing={1}>
@@ -71,14 +68,10 @@ const Footer = () => {
                         </Grid>
                         <Grid item container direction='column'>
                             <Grid item>
-                                <Typography sx={style.content}>
-                                    Monday - Sunday (10.00 - 21.00)
-                                </Typography>
+                                <Typography sx={style.content}>Monday - Sunday (10.00 - 21.00)</Typography>
                             </Grid>
                             <Grid item>
-                                <Typography sx={style.content}>
-                                    0812 3456 7890 (WA)
-                                </Typography>
+                                <Typography sx={style.content}>0812 3456 7890 (WA)</Typography>
                             </Grid>
                         </Grid>
                     </Grid>

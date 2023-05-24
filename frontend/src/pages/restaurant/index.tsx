@@ -4,14 +4,16 @@ import { Grid, Typography } from '@mui/material';
 import { useContext } from 'react';
 
 const Home = () => {
-    const { color } = useContext(StoreContext)!;
+    const {
+        storeInfo: { config }
+    } = useContext(StoreContext)!;
 
     return (
         <>
             <Grid container direction='column' justifyContent='center' alignItems='center' sx={{ minHeight: '50vh' }}>
                 <Grid item>
                     <Typography
-                        sx={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold', color: color.secondary }}
+                        sx={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold', color: config.secondaryColor }}
                     >
                         Welcome to Foodtura Platform, please scan QR Code on the table
                     </Typography>

@@ -4,7 +4,9 @@ import Image from 'next/image';
 import { useContext } from 'react';
 
 const StoreHome = () => {
-    const { color } = useContext(StoreContext)!;
+    const {
+        storeInfo: { config }
+    } = useContext(StoreContext)!;
 
     return (
         <>
@@ -15,7 +17,7 @@ const StoreHome = () => {
                     direction='column-reverse'
                     alignItems='center'
                     sx={{
-                        backgroundImage: 'url("/cover.png")',
+                        backgroundImage: `url("${config.homePhotoPath}")`,
                         width: '100%',
                         height: '250px',
                         backgroundSize: 'cover',
@@ -26,7 +28,7 @@ const StoreHome = () => {
                     <Grid
                         item
                         sx={{
-                            backgroundColor: color.primary,
+                            backgroundColor: config.primaryColor,
                             top: 130,
                             position: 'absolute',
                             py: 2,
@@ -39,7 +41,7 @@ const StoreHome = () => {
                             <Grid item>
                                 <Typography
                                     sx={{
-                                        color: color.secondary,
+                                        color: config.secondaryColor,
                                         fontWeight: 'bold',
                                         fontSize: '20px',
                                         textAlign: 'center'
@@ -51,7 +53,7 @@ const StoreHome = () => {
                             <Grid item>
                                 <Typography
                                     sx={{
-                                        color: color.secondary,
+                                        color: config.secondaryColor,
                                         textAlign: 'center',
                                         fontSize: '14px',
                                         fontWeight: 500
@@ -64,11 +66,11 @@ const StoreHome = () => {
                             <Grid item>
                                 <Button
                                     sx={{
-                                        backgroundColor: color.third,
+                                        backgroundColor: config.thirdColor,
                                         color: 'white',
                                         px: 4,
                                         '&:hover': {
-                                            backgroundColor: color.third,
+                                            backgroundColor: config.thirdColor,
                                             opacity: 0.8
                                         },
                                         fontSize: '14px'
@@ -81,25 +83,25 @@ const StoreHome = () => {
                     </Grid>
                 </Grid>
                 <Grid item sx={{ mt: 15 }}>
-                    <Grid container direction='column' alignItems='center' spacing={1}>
+                    <Grid container direction='column' alignItems='center' spacing={0}>
                         <Grid item>
-                            <Typography sx={{ color: color.secondary, fontWeight: 'bold', fontSize: '20px' }}>
+                            <Typography sx={{ color: config.secondaryColor, fontWeight: 'bold', fontSize: '20px' }}>
                                 ABOUT US
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Image
-                                src='/about.png'
+                                src={config.aboutPhotoPath}
                                 alt='about'
                                 width='0'
                                 height='0'
                                 sizes='100%'
-                                style={{ width: '400px', height: '100%' }}
+                                style={{ width: '350px', height: '100%' }}
                             />
                         </Grid>
                         <Grid item>
-                            <Typography sx={{ color: color.secondary, textAlign: 'center' }}>
-                                Experience the delectable flavors of Italy in every bite at Casetta
+                            <Typography sx={{ color: config.secondaryColor, textAlign: 'center' }}>
+                                {config.aboutDescription}
                             </Typography>
                         </Grid>
                     </Grid>

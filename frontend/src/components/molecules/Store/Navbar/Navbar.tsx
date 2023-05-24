@@ -26,7 +26,10 @@ function HideOnScroll(props: Props) {
 
 const Navbar = (props: any) => {
     const { setOpenSidebar } = props;
-    const { color } = useContext(StoreContext)!;
+    const {
+        storeInfo: { config },
+        setOpenCart
+    } = useContext(StoreContext)!;
     const pathRouteList = PathRouteList();
     return (
         <>
@@ -35,7 +38,7 @@ const Navbar = (props: any) => {
                 <AppBar
                     position='sticky'
                     sx={{
-                        backgroundColor: color.primary,
+                        backgroundColor: config.primaryColor,
                         py: 0.5,
                         pb: 0,
                         color: 'black'
@@ -54,7 +57,7 @@ const Navbar = (props: any) => {
                                         }}
                                         onClick={() => setOpenSidebar((state: any) => !state)}
                                     >
-                                        <FiMenu style={{ color: color.third }} size={'28px'} />
+                                        <FiMenu style={{ color: config.thirdColor }} size={'28px'} />
                                     </IconButton>
                                 </Grid>
                                 <Grid item>
@@ -75,8 +78,9 @@ const Navbar = (props: any) => {
                                                 p: 0,
                                                 m: 0
                                             }}
+                                            onClick={() => setOpenCart(() => true)}
                                         >
-                                            <BsCart style={{ color: color.third }} size={'28px'} />
+                                            <BsCart style={{ color: config.thirdColor }} size={'28px'} />
                                         </IconButton>
                                     </Grid>
                                 ) : (

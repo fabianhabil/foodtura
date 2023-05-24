@@ -14,7 +14,9 @@ interface SidebarType {
 }
 
 const Sidebar: React.FC<SidebarType> = ({ open, setOpen }) => {
-    const { color } = useContext(StoreContext)!;
+    const {
+        storeInfo: { config }
+    } = useContext(StoreContext)!;
     const sidebarButtonList = SidebarButtonList() as SidebarButtonType[];
     const pathList = PathRouteList();
 
@@ -28,7 +30,7 @@ const Sidebar: React.FC<SidebarType> = ({ open, setOpen }) => {
                     width: '240px',
                     flexShrink: 0,
                     '& .MuiDrawer-paper': {
-                        backgroundColor: color.primary,
+                        backgroundColor: config.primaryColor,
                         width: '240px',
                         boxSizing: 'border-box',
                         border: 0,
@@ -43,17 +45,14 @@ const Sidebar: React.FC<SidebarType> = ({ open, setOpen }) => {
                             sx={{ m: 0, p: 0, verticalAlign: 'middle' }}
                             onClick={() => setOpen((state: boolean) => !state)}
                         >
-                            <IoIosArrowBack
-                                style={{ color: color.third }}
-                                size={'28px'}
-                            />
+                            <IoIosArrowBack style={{ color: config.thirdColor }} size={'28px'} />
                         </IconButton>
                     </Grid>
                     {pathList.length <= 1 ? (
                         <Grid item>
                             <Typography
                                 sx={{
-                                    color: color.secondary,
+                                    color: config.secondaryColor,
                                     fontSize: '16px',
                                     textAlign: 'center',
                                     fontWeight: 'bold'
