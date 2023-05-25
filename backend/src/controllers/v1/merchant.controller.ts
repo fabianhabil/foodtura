@@ -1,8 +1,8 @@
 import { Service } from 'typedi';
 import { sendResponse } from '../../utils/api.util';
-import { Response } from 'express';
-import { JsonController, Body, Req, Res, Delete, Post, Get, Put } from 'routing-controllers';
-import { MerchantDTO } from '../../validations/merchant.validation';
+import { Response, response } from 'express';
+import { JsonController, Body, Req, Res, Delete, Post, Get, Put, Param } from 'routing-controllers';
+import { MerchantDTO, MerchantEditDTO } from '../../validations/merchant.validation';
 import { MerchantService } from '../../services/merchant.service';
 
 @Service()
@@ -18,4 +18,37 @@ export class MerchantController {
         return sendResponse(res, { message: 'Merchant successfully added!' })
     }
 
+    @Delete('/delete/:merchantId')
+    async deleteMerchant(@Res() res: Response, @Param('merchantId') merchantId: string){
+        await this.merchantService.delete(merchantId);
+
+        return sendResponse(res, { message: 'Merchant successfully deleted!'});
+    }
+
+    @Get('/find/:merchantId')
+    async findMerchant(@Res() res: Response, @Param('MerchantId') merchantId: string){
+        const merchant = await this.merchantService.get(merchantId);
+
+        return sendResponse(res, {
+            message: 'Merchant found!',
+            data: { merchant }
+        })
+    }
+
+    @Get('/')
+    async getAllMerchant(@Res() res: Response){
+        const merchants = await this.merchantService.getAll();
+
+        return sendResponse(res, {
+            message: 'successfully found all merchant',
+            data: { merchants }
+        })
+    }
+
+    @Put('/edit/:merchantId')
+    async editMerchant(@Res() res: Response, @Param('merchantId') merchantId: string, @Body() dto: MerchantEditDTO){
+        await this.merchantService.edit(merchantId, dto);
+
+        return sendResponse(res, { message: "Merchant successfully edited!" });
+    }
 }
