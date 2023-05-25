@@ -5,9 +5,12 @@ import { Box, Container } from '@mui/material';
 import { StoreContextProvider } from '@/contexts/StoreContext/StoreContext';
 import { useState } from 'react';
 import Sidebar from '@/components/molecules/Store/Sidebar/Sidebar';
+import PathRouteList from '@/helper/pathRouteList';
+import NavbarRsvp from '@/components/molecules/Store/NavbarRsvp/NavbarRsvp';
 
 const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
     const [open, setOpen] = useState<boolean>(false);
+    const pathList = PathRouteList();
 
     return (
         <StoreContextProvider>
@@ -24,8 +27,8 @@ const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
                         position: 'relative'
                     }}
                 >
-                    <Navbar setOpenSidebar={setOpen} />
-                    <Container maxWidth='xl' sx={{ py: 2, minHeight: '55.2vh' }}>
+                    {pathList[2] === 'rsvp' ? <NavbarRsvp /> : <Navbar setOpenSidebar={setOpen} />}
+                    <Container maxWidth='xl' sx={{ py: 2, minHeight: '55.2vh', pb: 3 }}>
                         {children}
                     </Container>
                     <Footer />
