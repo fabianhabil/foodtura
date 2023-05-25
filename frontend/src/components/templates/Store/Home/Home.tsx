@@ -1,12 +1,17 @@
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
+import PathRouteList from '@/helper/pathRouteList';
 import { Button, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
 
 const StoreHome = () => {
     const {
         storeInfo: { config }
     } = useContext(StoreContext)!;
+
+    const router = useRouter();
+    const pathList = PathRouteList();
 
     return (
         <>
@@ -75,6 +80,7 @@ const StoreHome = () => {
                                         },
                                         fontSize: '14px'
                                     }}
+                                    onClick={() => router.push(`/restaurant/${pathList[1]}/rsvp`)}
                                 >
                                     Find a Table
                                 </Button>

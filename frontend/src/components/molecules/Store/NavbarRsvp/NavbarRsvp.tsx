@@ -1,10 +1,9 @@
-import { AppBar, Container, Grid, IconButton, Slide, Toolbar, useScrollTrigger } from '@mui/material';
-import { FiMenu } from 'react-icons/fi';
-import { BsCart } from 'react-icons/bs';
-import { useContext } from 'react';
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
-import PathRouteList from '@/helper/pathRouteList';
+import { AppBar, Container, Grid, IconButton, Slide, Toolbar, useScrollTrigger } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { IoIosArrowBack } from 'react-icons/io';
 
 interface Props {
     window?: () => Window;
@@ -24,16 +23,14 @@ function HideOnScroll(props: Props) {
     );
 }
 
-const Navbar = (props: any) => {
-    const { setOpenSidebar } = props;
+const NavbarRsvp = (props: any) => {
     const {
-        storeInfo: { config },
-        setOpenCart
+        storeInfo: { config }
     } = useContext(StoreContext)!;
-    const pathRouteList = PathRouteList();
+    const router = useRouter();
+    const { restaurantId } = router.query;
     return (
         <>
-            <div id='top' />
             <HideOnScroll {...props}>
                 <AppBar
                     position='sticky'
@@ -55,37 +52,22 @@ const Navbar = (props: any) => {
                                             p: 0,
                                             m: 0
                                         }}
-                                        onClick={() => setOpenSidebar((state: any) => !state)}
+                                        onClick={() => router.push(`/restaurant/${restaurantId}`)}
                                     >
-                                        <FiMenu style={{ color: config.thirdColor }} size={'28px'} />
+                                        <IoIosArrowBack style={{ color: config.thirdColor }} size={'28px'} />
                                     </IconButton>
                                 </Grid>
                                 <Grid item>
                                     <Image
                                         alt='logo'
-                                        src={config.logoPhotoPath}
+                                        src='/icon/foodtura.png'
                                         width='0'
                                         height='0'
                                         sizes='100%'
                                         style={{ width: 'auto', height: '100%', maxHeight: '80px' }}
                                     />
                                 </Grid>
-                                {pathRouteList.length > 2 ? (
-                                    <Grid item>
-                                        <IconButton
-                                            sx={{
-                                                verticalAlign: 'middle',
-                                                p: 0,
-                                                m: 0
-                                            }}
-                                            onClick={() => setOpenCart(() => true)}
-                                        >
-                                            <BsCart style={{ color: config.thirdColor }} size={'28px'} />
-                                        </IconButton>
-                                    </Grid>
-                                ) : (
-                                    <Grid item />
-                                )}
+                                <Grid item />
                             </Grid>
                         </Container>
                     </Toolbar>
@@ -95,4 +77,4 @@ const Navbar = (props: any) => {
     );
 };
 
-export default Navbar;
+export default NavbarRsvp;
