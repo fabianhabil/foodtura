@@ -8,5 +8,5 @@ export class tableDto{
     size!: number;
 
     @IsString()
-    idMerchant!: string;
+    merchantId!: string;
 }
