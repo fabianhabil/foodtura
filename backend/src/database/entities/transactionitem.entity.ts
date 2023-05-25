@@ -13,6 +13,9 @@ export class TransactionItem extends BaseEntity {
     @Column()
     price!: number;
 
+    @Column({ name: 'id_transaction', select: false })
+    transactionId!: number;
+
     @ManyToOne(() => Transaction)
     @JoinColumn({ name: 'id_transaction' })
     transaction!: Transaction;
