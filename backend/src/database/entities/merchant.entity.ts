@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity,  OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { MerchantConfig } from './merchantconfig.entity';
 import { TableMerchant } from './tablemerchant.entity';
 import { FoodCategory } from './foodcategory.entity';
