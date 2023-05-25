@@ -11,4 +11,10 @@ export class MerchantDTO {
 export class MerchantEditDTO extends MerchantDTO {
     @IsString()
     merchantUrl!: string;
+
+    @IsString()
+    name!: string;
+
+    @IsString()
+    address!: string;
 }
