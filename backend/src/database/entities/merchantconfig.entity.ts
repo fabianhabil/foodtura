@@ -27,6 +27,9 @@ export class MerchantConfig extends BaseEntity {
     @Column({ length: 64, name: 'about_description' })
     aboutDescription!: string;
 
+    @Column({ name: 'id_merchant', select: false })
+    merchantId!: string;
+
     @ManyToOne(() => Merchant)
     @JoinColumn({ name: 'id_merchant' })
     merchant!: Merchant;
