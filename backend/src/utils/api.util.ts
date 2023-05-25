@@ -77,5 +77,7 @@ export const Errors = {
         StatusCodes.FORBIDDEN
     ),
 
-    USER_NOT_FOUND: new ResponseError('User not found', StatusCodes.NOT_FOUND)
+    USER_NOT_FOUND: new ResponseError('User not found', StatusCodes.NOT_FOUND),
+
+    MERCHANTURL_TAKEN: new ResponseError('Merchant URL is Taken', StatusCodes.CONFLICT)
 };
