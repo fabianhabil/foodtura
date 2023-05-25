@@ -4,6 +4,7 @@ import { TableMerchant } from './tablemerchant.entity';
 import { FoodCategory } from './foodcategory.entity';
 import { User } from './user.entity';
 import { Transaction } from './transaction.entity';
+import { RSVP } from './rsvp.entity';
 
 @Entity('Merchant')
 export class Merchant extends BaseEntity {
@@ -33,4 +34,7 @@ export class Merchant extends BaseEntity {
 
     @OneToMany(() => User, (user) => user)
     officer!: User[];
+
+    @OneToMany(() => RSVP, (rsvp) => rsvp)
+    rsvp!: RSVP[];
 }
