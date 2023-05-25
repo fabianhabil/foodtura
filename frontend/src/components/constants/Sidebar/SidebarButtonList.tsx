@@ -61,9 +61,9 @@ const SidebarButtonList = () => {
             ),
             active: pathList[3] === 'rsvp',
             onClick: () => {
-                router.push(`/restaurant/${pathList[1]}/${pathList[2]}/rsvp`);
+                router.push(`/restaurant/${pathList[1]}/rsvp`);
             },
-            render: pathList.length > 2
+            render: pathList.length === 2
         }
     ];
 
