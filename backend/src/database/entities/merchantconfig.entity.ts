@@ -3,7 +3,7 @@ import { Merchant } from './merchant.entity';
 
 @Entity('Merchant_Config')
 export class MerchantConfig extends BaseEntity {
-    @PrimaryGeneratedColumn({ name: 'id_merchant' })
+    @PrimaryGeneratedColumn({ name: 'id_merchant_config' })
     merchantConfigId!: number;
 
     @Column({ length: 64, name: 'primary_color' })
