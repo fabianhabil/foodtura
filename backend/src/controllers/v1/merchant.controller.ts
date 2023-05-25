@@ -35,6 +35,16 @@ export class MerchantController {
         })
     }
 
+    @Get('/')
+    async getAllMerchant(@Res() res: Response){
+        const merchants = await this.merchantService.getAll();
+
+        return sendResponse(res, {
+            message: 'successfully found all merchant',
+            data: { merchants }
+        })
+    }
+
     @Put('/edit/:MerchantId')
     async editMerchant(@Res() res: Response, @Param('MerchantId') MerchantId: string, @Body() dto: MerchantDTO){
         await this.merchantService.edit(MerchantId, dto);

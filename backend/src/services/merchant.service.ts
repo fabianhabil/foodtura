@@ -43,4 +43,10 @@ export class MerchantService {
         return merchant.save();
     }
 
+    async getAll(){
+        const merchant = await Merchant.find()
+
+        return merchant;
+    }
+
 }
