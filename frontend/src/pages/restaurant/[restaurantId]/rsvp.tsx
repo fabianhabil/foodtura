@@ -1,7 +1,12 @@
+import Rsvp from '@/components/templates/Store/Rsvp/Rsvp';
 import StoreLayout from '@/components/templates/Store/StoreLayout/StoreLayout';
 
 const Home = () => {
-    return <>ini page rsvp, udah masuk restaurant id dan table id</>;
+    return (
+        <>
+            <Rsvp />
+        </>
+    );
 };
 
 Home.getLayout = function getLayout(page: React.ReactNode) {

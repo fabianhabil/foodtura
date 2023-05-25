@@ -12,6 +12,7 @@ import theme from '@/styles/theme';
 import type { NextPage } from 'next';
 // eslint-disable-next-line import/extensions
 import '@/styles/globals.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 type Page<P = unknown> = NextPage<P> & {
     getLayout?: (_page: ReactNode) => ReactNode;
@@ -23,14 +24,8 @@ interface MyAppProps extends AppProps {
 
 const clientSideEmotionCache: EmotionCache = createEmotionCache();
 
-const MyApp: FunctionComponent<MyAppProps> = (
-    props: PropsWithChildren<MyAppProps>
-) => {
-    const {
-        Component,
-        emotionCache = clientSideEmotionCache,
-        pageProps
-    } = props;
+const MyApp: FunctionComponent<MyAppProps> = (props: PropsWithChildren<MyAppProps>) => {
+    const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
     const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
@@ -51,16 +46,10 @@ const MyApp: FunctionComponent<MyAppProps> = (
                             name='description'
                             content='Fortune Bookstore is a fictional bookstore created for final project database'
                         />
-                        <meta
-                            name='viewport'
-                            content='initial-scale=1, width=device-width'
-                        />
+                        <meta name='viewport' content='initial-scale=1, width=device-width' />
                         <meta property='og:type' content='website' />
                         <meta property='og:title' content='Fortune Bookstore' />
-                        <meta
-                            property='og:description'
-                            content='Fortune Bookstore'
-                        />
+                        <meta property='og:description' content='Fortune Bookstore' />
                     </Head>
                     <ThemeProvider theme={theme}>
                         <CssBaseline />
