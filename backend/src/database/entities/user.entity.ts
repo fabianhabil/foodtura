@@ -28,6 +28,9 @@ export class User extends BaseEntity {
     @Column(() => TrackingEmbed, { prefix: false })
     track!: TrackingEmbed;
 
+    @Column({ name: 'id_merchant', select: false })
+    merchantId!: string;
+
     @ManyToOne(() => Merchant, { nullable: true })
     @JoinColumn({ name: 'id_merchant' })
     merchant!: Merchant;

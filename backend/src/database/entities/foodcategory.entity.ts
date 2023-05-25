@@ -10,6 +10,9 @@ export class FoodCategory extends BaseEntity {
     @Column({ length: 64 })
     name!: string;
 
+    @Column({ name: 'id_merchant', select: false })
+    merchantId!: string;
+
     @ManyToOne(() => Merchant)
     @JoinColumn({ name: 'id_merchant' })
     merchant!: Merchant;

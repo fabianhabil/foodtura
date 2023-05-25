@@ -12,6 +12,9 @@ export class RSVP extends BaseEntity {
     @Column()
     size!: number;
 
+    @Column({ name: 'id_merchant', select: false })
+    merchantId!: string;
+
     @ManyToOne(() => Merchant)
     @JoinColumn({ name: 'id_merchant' })
     merchant!: Merchant;

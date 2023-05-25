@@ -19,6 +19,9 @@ export class Food extends BaseEntity {
     @Column({ name: 'is_merchant_favorite' })
     isMerchantFavorite!: boolean;
 
+    @Column({ name: 'id_food_category', select: false })
+    idFoodCategory!: number;
+
     @ManyToOne(() => FoodCategory)
     @JoinColumn({ name: 'id_food_category' })
     foodCategory!: FoodCategory;
