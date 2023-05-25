@@ -1,6 +1,6 @@
 import { IsNumber, IsString } from "class-validator";
 
-export class tableDto{
+export class createTableDto{
     @IsString()
     name!: string;
 
@@ -9,4 +9,12 @@ export class tableDto{
 
     @IsString()
     merchantId!: string;
+}
+
+export class editTableDto{
+    @IsString()
+    name!: string;
+
+    @IsNumber()
+    size!: number;
 }

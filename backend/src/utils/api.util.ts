@@ -81,5 +81,7 @@ export const Errors = {
 
     MERCHANTURL_TAKEN: new ResponseError('Merchant URL is Taken', StatusCodes.CONFLICT),
 
-    MERCHANT_NOT_FOUND: new ResponseError('Merchant not found', StatusCodes.NOT_FOUND)
+    MERCHANT_NOT_FOUND: new ResponseError('Merchant not found', StatusCodes.NOT_FOUND),
+
+    TABLE_NOT_FOUND: new ResponseError('Table not found!', StatusCodes.NOT_FOUND)
 };
