@@ -36,9 +36,16 @@ export class MerchantService {
 
     async edit(MerchantId: string, {name, address}: MerchantDTO){
         const merchant = await this.get(MerchantId);
+        const merchantUrl = name.split(" ").join("-");
+        const isMerchantUrlTaken = await Merchant.findOneBy({ merchantUrl })
+
+        if (isMerchantUrlTaken) {
+            throw Errors.MERCHANTURL_TAKEN;
+        }
 
         merchant.name = name;
         merchant.address = address;
+        merchant.merchantUrl = merchantUrl;
 
         return merchant.save();
     }
