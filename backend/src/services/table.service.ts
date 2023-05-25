@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { createTableDto, editTableDto } from "../validations/table.validation";
+import { CreateTableDto, EditTableDto } from "../validations/table.validation";
 import { TableMerchant } from "../database/entities/tablemerchant.entity";
 import { table } from "console";
 import { Merchant } from "../database/entities/merchant.entity";
@@ -7,7 +7,7 @@ import { Errors } from "../utils/api.util";
 
 @Service()
 export class TableService{
-    async create({name, size, merchantId}: createTableDto){
+    async create({name, size, merchantId}: CreateTableDto){
         const table = TableMerchant.create({name, size, merchantId});
         await TableMerchant.save(table);
     }
@@ -34,7 +34,7 @@ export class TableService{
         await TableMerchant.remove(table);
     }
 
-    async edit(tableId: string, {name, size}: editTableDto){
+    async edit(tableId: string, {name, size}: EditTableDto){
         const table = await this.get(tableId);
         
         table.name = name;

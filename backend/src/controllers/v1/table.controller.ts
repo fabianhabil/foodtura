@@ -1,7 +1,7 @@
 import { Body, Delete, Get, JsonController, Param, Post, Put, Res } from "routing-controllers";
 import { Service } from "typedi";
 import { TableService } from "../../services/table.service";
-import { editTableDto, createTableDto } from "../../validations/table.validation";
+import { EditTableDto, CreateTableDto } from "../../validations/table.validation";
 import { sendResponse } from "../../utils/api.util";
 import { Response, response } from "express";
 
@@ -11,7 +11,7 @@ export class TableController{
     constructor(private readonly tableService: TableService) { }
 
     @Post('/create')
-    async create(@Res() res: Response, @Body() dto: createTableDto){
+    async create(@Res() res: Response, @Body() dto: CreateTableDto){
         await this.tableService.create(dto);
 
         return sendResponse(res, {message: 'table successfully added!'});
@@ -45,7 +45,7 @@ export class TableController{
     }
 
     @Put('/edit/:tableId')
-    async editTable(@Res() res: Response, @Param('tableId') tableId: string, @Body() dto: editTableDto){
+    async editTable(@Res() res: Response, @Param('tableId') tableId: string, @Body() dto: EditTableDto){
         await this.tableService.edit(tableId, dto);
 
         return sendResponse(res, {message: 'Table successfully edited!'});
