@@ -1,10 +1,10 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { MerchantConfig } from './merchantconfig.entity';
+import { BaseEntity, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TableMerchant } from './tablemerchant.entity';
 import { FoodCategory } from './foodcategory.entity';
 import { User } from './user.entity';
 import { Transaction } from './transaction.entity';
 import { RSVP } from './rsvp.entity';
+import { MerchantConfig } from './merchantconfig.entity';
 
 @Entity('Merchant')
 export class Merchant extends BaseEntity {
@@ -20,8 +20,12 @@ export class Merchant extends BaseEntity {
     @Column({ length: 64, unique: true })
     merchantUrl!: string;
 
-    @OneToMany(() => MerchantConfig, (merchantConfig) => merchantConfig)
-    config!: MerchantConfig[];
+    @Column({ name: 'id_merchant_config', select: false, nullable: true })
+    merchantConfigId!: number;
+
+    @OneToOne(() => MerchantConfig)
+    @JoinColumn({ name: 'id_merchant_config' })
+    config!: MerchantConfig;
 
     @OneToMany(() => TableMerchant, (tableMerchant) => tableMerchant)
     table!: TableMerchant[];

@@ -1,36 +1,28 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Merchant } from './merchant.entity';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('Merchant_Config')
 export class MerchantConfig extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id_merchant_config' })
     merchantConfigId!: number;
 
-    @Column({ length: 64, name: 'primary_color' })
+    @Column({ length: 64, name: 'primary_color', nullable: true })
     primaryColor!: string;
 
-    @Column({ length: 64, name: 'secondary_color' })
+    @Column({ length: 64, name: 'secondary_color', nullable: true })
     secondaryColor!: string;
 
-    @Column({ length: 64, name: 'third_color' })
+    @Column({ length: 64, name: 'third_color', nullable: true })
     thirdColor!: string;
 
-    @Column({ length: 64, name: 'logo_photo_path' })
+    @Column({ length: 64, name: 'logo_photo_path', nullable: true })
     logoPhotoPath!: string;
 
-    @Column({ length: 64, name: 'home_photo_path' })
+    @Column({ length: 64, name: 'home_photo_path', nullable: true })
     homePhotoPath!: string;
 
-    @Column({ length: 64, name: 'about_photo_path' })
+    @Column({ length: 64, name: 'about_photo_path', nullable: true })
     aboutPhotoPath!: string;
 
-    @Column({ length: 64, name: 'about_description' })
+    @Column({ length: 64, name: 'about_description', nullable: true })
     aboutDescription!: string;
-
-    @Column({ name: 'id_merchant', select: false })
-    merchantId!: string;
-
-    @ManyToOne(() => Merchant)
-    @JoinColumn({ name: 'id_merchant' })
-    merchant!: Merchant;
 }
