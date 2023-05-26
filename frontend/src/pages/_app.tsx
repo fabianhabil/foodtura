@@ -13,6 +13,7 @@ import type { NextPage } from 'next';
 // eslint-disable-next-line import/extensions
 import '@/styles/globals.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import { DashboardContextProvider } from '@/contexts/DashboardContext/DashboardContext';
 
 type Page<P = unknown> = NextPage<P> & {
     getLayout?: (_page: ReactNode) => ReactNode;
@@ -37,38 +38,35 @@ const MyApp: FunctionComponent<MyAppProps> = (props: PropsWithChildren<MyAppProp
 
     return (
         <CacheProvider value={emotionCache}>
-            {/* <AuthContextProvider> */}
-            {getLayout(
-                <>
-                    <Head>
-                        <title>Foodtura</title>
-                        <meta
-                            name='description'
-                            content='Fortune Bookstore is a fictional bookstore created for final project database'
-                        />
-                        <meta name='viewport' content='initial-scale=1, width=device-width' />
-                        <meta property='og:type' content='website' />
-                        <meta property='og:title' content='Fortune Bookstore' />
-                        <meta property='og:description' content='Fortune Bookstore' />
-                    </Head>
-                    <ThemeProvider theme={theme}>
-                        <CssBaseline />
-                        <Component {...pageProps} />
-                        <ToastContainer
-                            position='top-right'
-                            autoClose={5000}
-                            hideProgressBar={false}
-                            newestOnTop={true}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                        />
-                    </ThemeProvider>
-                </>
-            )}
-            {/* </AuthContextProvider> */}
+            <DashboardContextProvider>
+                {getLayout(
+                    <>
+                        <Head>
+                            <title>Foodtura</title>
+                            <meta name='description' content='Foodtura' />
+                            <meta name='viewport' content='initial-scale=1, width=device-width' />
+                            <meta property='og:type' content='website' />
+                            <meta property='og:title' content='Foodtura' />
+                            <meta property='og:description' content='Foodtura' />
+                        </Head>
+                        <ThemeProvider theme={theme}>
+                            <CssBaseline />
+                            <Component {...pageProps} />
+                            <ToastContainer
+                                position='top-right'
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={true}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                            />
+                        </ThemeProvider>
+                    </>
+                )}
+            </DashboardContextProvider>
         </CacheProvider>
     );
 };
