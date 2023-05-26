@@ -19,7 +19,11 @@ import type { UserPayload, TokenType, LoginInfo } from '../typings/auth';
 @Service()
 export class AuthService {
     async login({ email, password }: LoginDTO): Promise<LoginInfo> {
-        const foundUser = await User.findOneBy({ email });
+        const foundUser = await User.findOne({
+            where: { email },
+            select: { password: false },
+            relations: { merchant: true }
+        });
 
         if (!foundUser) {
             throw new ResponseError('Account is not registered!', StatusCodes.NOT_FOUND);
@@ -45,8 +49,8 @@ export class AuthService {
         }
 
         const user = User.create({ ...body, role: UserRole.OWNER });
-
         user.password = await this.hashPassword(user.password);
+
         await User.save(user);
     }
 
