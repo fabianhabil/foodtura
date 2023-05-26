@@ -1,7 +1,16 @@
 import DashboardLayout from '@/components/templates/Dashboard/DashboardLayout/DashboardLayout';
+import Restaurant from '@/components/templates/Dashboard/Restaurant/Restaurant';
+import Head from 'next/head';
 
 const Home = () => {
-    return <>page restaurant</>;
+    return (
+        <>
+            <Head>
+                <title>Restaurant - Dashboard</title>
+            </Head>
+            <Restaurant />
+        </>
+    );
 };
 
 Home.getLayout = function getLayout(page: React.ReactNode) {
