@@ -38,18 +38,18 @@ const MyApp: FunctionComponent<MyAppProps> = (props: PropsWithChildren<MyAppProp
 
     return (
         <CacheProvider value={emotionCache}>
-            <DashboardContextProvider>
-                {getLayout(
-                    <>
-                        <Head>
-                            <title>Foodtura</title>
-                            <meta name='description' content='Foodtura' />
-                            <meta name='viewport' content='initial-scale=1, width=device-width' />
-                            <meta property='og:type' content='website' />
-                            <meta property='og:title' content='Foodtura' />
-                            <meta property='og:description' content='Foodtura' />
-                        </Head>
-                        <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
+                <DashboardContextProvider>
+                    {getLayout(
+                        <>
+                            <Head>
+                                <title>Foodtura</title>
+                                <meta name='description' content='Foodtura' />
+                                <meta name='viewport' content='initial-scale=1, width=device-width' />
+                                <meta property='og:type' content='website' />
+                                <meta property='og:title' content='Foodtura' />
+                                <meta property='og:description' content='Foodtura' />
+                            </Head>
                             <CssBaseline />
                             <Component {...pageProps} />
                             <ToastContainer
@@ -63,10 +63,10 @@ const MyApp: FunctionComponent<MyAppProps> = (props: PropsWithChildren<MyAppProp
                                 draggable
                                 pauseOnHover
                             />
-                        </ThemeProvider>
-                    </>
-                )}
-            </DashboardContextProvider>
+                        </>
+                    )}
+                </DashboardContextProvider>
+            </ThemeProvider>
         </CacheProvider>
     );
 };
