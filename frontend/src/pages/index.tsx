@@ -20,7 +20,7 @@ const Home = () => {
                     <Link href='/restaurant'>Restaurant Page</Link>
                 </Grid>
                 <Grid item>
-                    <Link href='/admin'>Admin Page</Link>
+                    <Link href='/dashboard'>Dashboard Page</Link>
                 </Grid>
             </Grid>
         </>

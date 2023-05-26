@@ -6,15 +6,10 @@ import config from '../configs/config';
 import { Service } from 'typedi';
 import { StatusCodes } from 'http-status-codes';
 import { RefreshToken } from '../database/entities/refresh-token.entity';
-import { User } from '../database/entities/user.entity';
+import { User, UserRole } from '../database/entities/user.entity';
 import { isString } from 'class-validator';
 
-import {
-    ACCESS_TOKEN_COOKIE,
-    REFRESH_TOKEN_COOKIE,
-    Errors,
-    ResponseError
-} from '../utils/api.util';
+import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE, Errors, ResponseError } from '../utils/api.util';
 
 import type { Request } from 'express';
 import type { JwtPayload } from 'jsonwebtoken';
@@ -23,34 +18,21 @@ import type { UserPayload, TokenType, LoginInfo } from '../typings/auth';
 
 @Service()
 export class AuthService {
-    /*  Query SQL Login
-        userQuery = SELECT * FROM user WHERE email = body.email
-            IF MATCH
-                IF bcryptCompare userQuery.password and body.password
-                    THEN GENERATE JWT TOKEN SET TO CLIENT AND RETURN userQuery
-            ELSE
-                RETURN ERROR
-    */
     async login({ email, password }: LoginDTO): Promise<LoginInfo> {
-        const foundUser = await User.findOneBy({ email });
+        const foundUser = await User.findOne({
+            where: { email },
+            select: { password: false },
+            relations: { merchant: true }
+        });
 
         if (!foundUser) {
-            throw new ResponseError(
-                'Account is not registered!',
-                StatusCodes.NOT_FOUND
-            );
+            throw new ResponseError('Account is not registered!', StatusCodes.NOT_FOUND);
         }
 
-        const isPasswordValid = await bcrypt.compare(
-            password,
-            foundUser.password
-        );
+        const isPasswordValid = await bcrypt.compare(password, foundUser.password);
 
         if (!isPasswordValid) {
-            throw new ResponseError(
-                'Incorrect password',
-                StatusCodes.BAD_REQUEST
-            );
+            throw new ResponseError('Incorrect password', StatusCodes.BAD_REQUEST);
         }
 
         const accessToken = await this.generateToken(foundUser, 'access');
@@ -59,23 +41,16 @@ export class AuthService {
         return { accessToken, refreshToken, foundUser };
     }
 
-    /*  Query SQL Register
-        INSERT INTO TABLE user VALUES(body.name, body.email,
-        body.password, body.alamat, DEFAULT, body.tglLahir, body.phone, DEFAULT)
-    */
     async register(body: RegisterDTO) {
         const foundUser = await User.findOneBy({ email: body.email });
 
         if (foundUser) {
-            throw new ResponseError(
-                'This email is already registered',
-                StatusCodes.CONFLICT
-            );
+            throw new ResponseError('This email is already registered', StatusCodes.CONFLICT);
         }
 
-        const user = User.create({ ...body });
-
+        const user = User.create({ ...body, role: UserRole.OWNER });
         user.password = await this.hashPassword(user.password);
+
         await User.save(user);
     }
 
@@ -103,10 +78,7 @@ export class AuthService {
         return bcrypt.hash(password, config.hashRounds);
     }
 
-    private async generateToken(
-        user: User | UserPayload,
-        tokenType: TokenType
-    ) {
+    private async generateToken(user: User | UserPayload, tokenType: TokenType) {
         let tokenSecret: string;
 
         const signOption: jwt.SignOptions = {};
