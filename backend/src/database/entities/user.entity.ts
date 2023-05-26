@@ -19,7 +19,7 @@ export class User extends BaseEntity {
     @Column({ length: 64, unique: true })
     email!: string;
 
-    @Column({ length: 64, select: false })
+    @Column({ length: 64 })
     password!: string;
 
     @Column({ type: 'enum', default: UserRole.OWNER, enum: UserRole })
@@ -28,7 +28,7 @@ export class User extends BaseEntity {
     @Column(() => TrackingEmbed, { prefix: false })
     track!: TrackingEmbed;
 
-    @Column({ name: 'id_merchant', select: false })
+    @Column({ name: 'id_merchant', select: false, nullable: true })
     merchantId!: string;
 
     @ManyToOne(() => Merchant, { nullable: true })
