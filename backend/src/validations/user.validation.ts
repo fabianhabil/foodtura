@@ -24,3 +24,5 @@ export class RegisterDTO extends LoginDTO {
     @MaxLength(64)
     name!: string;
 }
+
+
