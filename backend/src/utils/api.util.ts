@@ -64,18 +64,12 @@ export const Errors = {
     /**
      * User doesn't have JWT or authentication token
      */
-    NO_SESSION: new ResponseError(
-        "You don't have an account session",
-        StatusCodes.UNAUTHORIZED
-    ),
+    NO_SESSION: new ResponseError("You don't have an account session", StatusCodes.UNAUTHORIZED),
 
     /**
      * User doesn't have the permission
      */
-    NO_PERMISSION: new ResponseError(
-        "You don't have the permission to access this content",
-        StatusCodes.FORBIDDEN
-    ),
+    NO_PERMISSION: new ResponseError("You don't have the permission to access this content", StatusCodes.FORBIDDEN),
 
     USER_NOT_FOUND: new ResponseError('User not found', StatusCodes.NOT_FOUND),
 
@@ -83,5 +77,9 @@ export const Errors = {
 
     MERCHANT_NOT_FOUND: new ResponseError('Merchant not found', StatusCodes.NOT_FOUND),
 
-    TABLE_NOT_FOUND: new ResponseError('Table not found!', StatusCodes.NOT_FOUND)
+    TABLE_NOT_FOUND: new ResponseError('Table not found!', StatusCodes.NOT_FOUND),
+
+    UUID_NOT_VALID: new ResponseError('UUID Not Valid!', StatusCodes.BAD_REQUEST),
+
+    FOOD_CATEGORY_NOT_FOUND: new ResponseError('Food Category not found', StatusCodes.NOT_FOUND)
 };

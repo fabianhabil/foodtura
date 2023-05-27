@@ -20,7 +20,7 @@ const AboutRestaurant = ({
                 </Grid>
                 <Grid item>
                     <Grid container direction='row' justifyContent='space-around' spacing={2}>
-                        <Grid item xs={9}>
+                        <Grid item xs={8}>
                             <TextField fullWidth multiline rows={7} />
                         </Grid>
                         <Grid item xs>

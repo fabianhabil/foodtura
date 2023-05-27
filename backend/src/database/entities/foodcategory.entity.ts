@@ -10,13 +10,16 @@ export class FoodCategory extends BaseEntity {
     @Column({ length: 64 })
     name!: string;
 
-    @Column({ name: 'id_merchant', select: false })
+    @Column({ name: 'id_merchant' })
     merchantId!: string;
+
+    @Column({ name: 'is_hidden', default: false })
+    isHidden!: boolean;
 
     @ManyToOne(() => Merchant)
     @JoinColumn({ name: 'id_merchant' })
     merchant!: Merchant;
 
-    @OneToMany(() => Food, (food) => food)
+    @OneToMany(() => Food, (food) => food.foodCategory)
     food!: Food[];
 }

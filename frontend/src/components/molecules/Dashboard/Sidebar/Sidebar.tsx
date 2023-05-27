@@ -26,8 +26,8 @@ const SidebarList: { name: string; url: string; icon: ReactNode }[] = [
         )
     },
     {
-        name: 'Food',
-        url: '/dashboard/food',
+        name: 'Menu',
+        url: '/dashboard/menu',
         icon: (
             <MdFastfood
                 style={{

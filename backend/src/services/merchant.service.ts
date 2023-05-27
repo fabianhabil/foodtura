@@ -34,8 +34,6 @@ export class MerchantService {
             throw Errors.MERCHANT_NOT_FOUND;
         }
 
-        console.log(merchant);
-
         return merchant;
     }
 
