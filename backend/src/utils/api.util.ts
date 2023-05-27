@@ -83,5 +83,9 @@ export const Errors = {
 
     MERCHANT_NOT_FOUND: new ResponseError('Merchant not found', StatusCodes.NOT_FOUND),
 
-    TABLE_NOT_FOUND: new ResponseError('Table not found!', StatusCodes.NOT_FOUND)
+    TABLE_NOT_FOUND: new ResponseError('Table not found!', StatusCodes.NOT_FOUND),
+
+    TRANSACTION_NOT_FOUND: new ResponseError('Transaction not found!', StatusCodes.NOT_FOUND),
+
+    TRANSACTION_ITEM_NOT_FOUND: new ResponseError('Transaction Item not found!', StatusCodes.NOT_FOUND)
 };
