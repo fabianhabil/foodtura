@@ -4,10 +4,12 @@ import { type ColorResult, SketchPicker } from 'react-color';
 
 const EditColorButton = ({
     colorInit,
-    setNewColor
+    setNewColor,
+    title
 }: {
     colorInit: string | null;
     setNewColor: (arg: string) => void;
+    title: string;
 }) => {
     const [color, setColor] = useState(colorInit ? null : '#000000');
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
@@ -27,7 +29,7 @@ const EditColorButton = ({
         <>
             <Grid container direction='column' alignItems='center'>
                 <Grid item sx={{ pb: 1 }}>
-                    <Typography>Primary Color</Typography>
+                    <Typography>{title}</Typography>
                 </Grid>
                 <Grid item>
                     <ButtonBase
