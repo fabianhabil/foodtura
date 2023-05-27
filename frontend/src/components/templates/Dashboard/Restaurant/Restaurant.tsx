@@ -34,9 +34,12 @@ const Restaurant = () => {
     const { userData } = useContext(DashboardContext)!;
 
     useEffect(() => {
-        getConfig();
+        if (userData?.merchant?.merchantId !== '') {
+            console.log(userData?.merchant?.merchantId);
+            getConfig();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [userData]);
 
     const getConfig = async () => {
         try {

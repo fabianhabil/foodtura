@@ -3,11 +3,13 @@ import ToastSuccess from '@/components/atoms/Toast/ToastSuccess';
 import { DashboardContext } from '@/contexts/DashboardContext/DashboardContext';
 import { Box, Button, Grid, Modal, TextField, Typography } from '@mui/material';
 import { isAxiosError } from 'axios';
+import { useRouter } from 'next/router';
 import { useState, type Dispatch, type SetStateAction, useContext } from 'react';
 
 const CreateMerchantModal = ({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) => {
     const [merchantInfo, setMerchantInfo] = useState<{ name: string; address: string }>({ name: '', address: '' });
     const { userData } = useContext(DashboardContext)!;
+    const router = useRouter();
 
     const closeModal = () => {
         setOpen(() => false);
@@ -19,6 +21,7 @@ const CreateMerchantModal = ({ open, setOpen }: { open: boolean; setOpen: Dispat
             if (response) {
                 ToastSuccess('Restaurant berhasil dibuat!');
                 localStorage.setItem('user-data', JSON.stringify(response.data.data.user));
+                router.reload();
                 closeModal();
             }
         } catch (e) {
