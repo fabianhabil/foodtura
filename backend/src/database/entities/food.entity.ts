@@ -10,6 +10,9 @@ export class Food extends BaseEntity {
     @Column({ length: 64 })
     name!: string;
 
+    @Column({ length: 128, nullable: true })
+    description!: string;
+
     @Column()
     price!: number;
 
@@ -19,16 +22,19 @@ export class Food extends BaseEntity {
     @Column({ name: 'is_merchant_favorite' })
     isMerchantFavorite!: boolean;
 
+    @Column({ name: 'is_hidden', default: false })
+    isHidden!: boolean;
+
     @Column({ name: 'food_photo_path' })
     foodPhotoPath!: string;
 
-    @Column({ name: 'id_food_category', select: false })
+    @Column({ name: 'id_food_category' })
     foodCategoryId!: number;
 
     @ManyToOne(() => FoodCategory)
     @JoinColumn({ name: 'id_food_category' })
     foodCategory!: FoodCategory;
 
-    @OneToMany(() => TransactionItem, (transactionItem) => transactionItem)
+    @OneToMany(() => TransactionItem, (transactionItem) => transactionItem.food)
     transactionitem!: TransactionItem[];
 }

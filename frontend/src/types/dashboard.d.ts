@@ -51,10 +51,20 @@ export interface MerchantColorType {
 }
 
 export interface FoodType {
+    foodId?: number;
     name: string;
     description: string;
+    price: number;
     isSpicy: boolean;
     isMerchantFavorite: boolean;
     foodPhotoPath: string;
+    foodCategoryId?: number;
+    foodCategory?: FoodCategoryType;
+}
+
+export interface FoodCategoryType {
     foodCategoryId: number;
+    name: string;
+    merchantId: string;
+    food?: FoodType[];
 }

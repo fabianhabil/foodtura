@@ -1,16 +1,16 @@
 import DashboardLayout from '@/components/templates/Dashboard/DashboardLayout/DashboardLayout';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import EditFood from '@/components/templates/Dashboard/Food/EditFood/EditFood';
+import Head from 'next/head';
 
 const Home = () => {
-    const router = useRouter();
-
-    useEffect(() => {
-        router.push('/dashboard/restaurant');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    return <></>;
+    return (
+        <>
+            <Head>
+                <title>Edit Food - Foodtura</title>
+            </Head>
+            <EditFood />
+        </>
+    );
 };
 
 Home.getLayout = function getLayout(page: React.ReactNode) {

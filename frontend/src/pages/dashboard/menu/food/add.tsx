@@ -1,4 +1,4 @@
-import AddFood from '@/components/templates/Dashboard/AddFood/AddFood';
+import AddFood from '@/components/templates/Dashboard/Food/AddFood/AddFood';
 import DashboardLayout from '@/components/templates/Dashboard/DashboardLayout/DashboardLayout';
 import Head from 'next/head';
 

@@ -6,14 +6,11 @@ import { isAxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useState, type Dispatch, type SetStateAction, useContext } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CreateMerchantModal = ({ open, setOpen }: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>> }) => {
     const [merchantInfo, setMerchantInfo] = useState<{ name: string; address: string }>({ name: '', address: '' });
     const { userData } = useContext(DashboardContext)!;
     const router = useRouter();
-
-    const closeModal = () => {
-        setOpen(() => false);
-    };
 
     const createRestaurant = async () => {
         try {
@@ -22,7 +19,6 @@ const CreateMerchantModal = ({ open, setOpen }: { open: boolean; setOpen: Dispat
                 ToastSuccess('Restaurant berhasil dibuat!');
                 localStorage.setItem('user-data', JSON.stringify(response.data.data.user));
                 router.reload();
-                closeModal();
             }
         } catch (e) {
             if (isAxiosError(e)) {
@@ -46,7 +42,7 @@ const CreateMerchantModal = ({ open, setOpen }: { open: boolean; setOpen: Dispat
                         outline: 'none'
                     }}
                 >
-                    <Grid container direction='column' spacing={3}>
+                    <Grid container direction="column" spacing={3}>
                         <Grid item>
                             <Typography sx={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold' }}>
                                 You dont have any restaurant 😥 Lets make one!
@@ -55,10 +51,10 @@ const CreateMerchantModal = ({ open, setOpen }: { open: boolean; setOpen: Dispat
                         <Grid item>
                             <TextField
                                 fullWidth
-                                label='Restaurant Name'
-                                variant='outlined'
-                                placeholder='Enter your Restaurant Name'
-                                size='small'
+                                label="Restaurant Name"
+                                variant="outlined"
+                                placeholder="Enter your Restaurant Name"
+                                size="small"
                                 defaultValue={merchantInfo.name}
                                 onChange={(e) => setMerchantInfo((state) => ({ ...state, name: e.target.value }))}
                             />
@@ -66,15 +62,15 @@ const CreateMerchantModal = ({ open, setOpen }: { open: boolean; setOpen: Dispat
                         <Grid item>
                             <TextField
                                 fullWidth
-                                label='Restaurant Address'
-                                variant='outlined'
-                                placeholder='Enter your Restaurant Address'
-                                size='small'
+                                label="Restaurant Address"
+                                variant="outlined"
+                                placeholder="Enter your Restaurant Address"
+                                size="small"
                                 defaultValue={merchantInfo.address}
                                 onChange={(e) => setMerchantInfo((state) => ({ ...state, address: e.target.value }))}
                             />
                         </Grid>
-                        <Grid item container alignItems='center' justifyContent='center'>
+                        <Grid item container alignItems="center" justifyContent="center">
                             <Button
                                 sx={{
                                     backgroundColor: '#0E2979',

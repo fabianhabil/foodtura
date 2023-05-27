@@ -1,4 +1,5 @@
 import DashboardLayout from '@/components/templates/Dashboard/DashboardLayout/DashboardLayout';
+import FoodCategoryMenu from '@/components/templates/Dashboard/FoodCategory/FoodCategoryMenu/FoodCategoryMenu';
 import Head from 'next/head';
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
             <Head>
                 <title>Category - Foodtura</title>
             </Head>
+            <FoodCategoryMenu />
         </>
     );
 };

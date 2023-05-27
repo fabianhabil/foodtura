@@ -1,14 +1,14 @@
 import DashboardLayout from '@/components/templates/Dashboard/DashboardLayout/DashboardLayout';
-import FoodMenu from '@/components/templates/Dashboard/Food/FoodMenu/FoodMenu';
+import AddFoodCategory from '@/components/templates/Dashboard/FoodCategory/AddFoodCategory/AddFoodCategory';
 import Head from 'next/head';
 
 const Home = () => {
     return (
         <>
             <Head>
-                <title>Food - Foodtura</title>
+                <title>Add Category - Foodtura</title>
             </Head>
-            <FoodMenu />
+            <AddFoodCategory />
         </>
     );
 };

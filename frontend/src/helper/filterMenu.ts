@@ -1,4 +1,4 @@
-import type { FoodType } from '@/types/store';
+import type { FoodType } from '@/types/dashboard';
 
 export const sortAlphabeticallyAscending = (menu: FoodType[]) => {
     return menu.sort((a, b) =>
