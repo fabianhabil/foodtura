@@ -81,5 +81,8 @@ export const Errors = {
 
     UUID_NOT_VALID: new ResponseError('UUID Not Valid!', StatusCodes.BAD_REQUEST),
 
-    FOOD_CATEGORY_NOT_FOUND: new ResponseError('Food Category not found', StatusCodes.NOT_FOUND)
+    FOOD_CATEGORY_NOT_FOUND: new ResponseError('Food Category not found', StatusCodes.NOT_FOUND),
+    TRANSACTION_NOT_FOUND: new ResponseError('Transaction not found!', StatusCodes.NOT_FOUND),
+
+    TRANSACTION_ITEM_NOT_FOUND: new ResponseError('Transaction Item not found!', StatusCodes.NOT_FOUND)
 };
