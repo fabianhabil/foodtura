@@ -49,3 +49,12 @@ export interface MerchantColorType {
     secondaryColor: string | null;
     thirdColor: string | null;
 }
+
+export interface FoodType {
+    name: string;
+    description: string;
+    isSpicy: boolean;
+    isMerchantFavorite: boolean;
+    foodPhotoPath: string;
+    foodCategoryId: number;
+}

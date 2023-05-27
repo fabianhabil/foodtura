@@ -1,7 +1,14 @@
 import DashboardLayout from '@/components/templates/Dashboard/DashboardLayout/DashboardLayout';
+import Head from 'next/head';
 
 const Home = () => {
-    return <>page food</>;
+    return (
+        <>
+            <Head>
+                <title>Category - Foodtura</title>
+            </Head>
+        </>
+    );
 };
 
 Home.getLayout = function getLayout(page: React.ReactNode) {
