@@ -2,20 +2,10 @@ import { StoreContext } from '@/contexts/StoreContext/StoreContext';
 import { Box, Button, Grid, IconButton, Modal, TextField, Typography } from '@mui/material';
 import { IoChevronBack } from 'react-icons/io5';
 import { useContext, useState } from 'react';
+import type { FoodType } from '@/types/dashboard';
+import Image from 'next/image';
 
-const MenuModal = ({
-    open,
-    handleClose,
-    menu
-}: {
-    open: boolean;
-    handleClose: () => void;
-    menu: {
-        name: string;
-        description: string;
-        price: number;
-    };
-}) => {
+const MenuModal = ({ open, handleClose, menu }: { open: boolean; handleClose: () => void; menu: FoodType }) => {
     const {
         storeInfo: { config },
         addItemToCart
@@ -34,8 +24,8 @@ const MenuModal = ({
             <Modal
                 open={open}
                 onClose={closeModal}
-                aria-labelledby='modal-modal-title'
-                aria-describedby='modal-modal-description'
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
             >
                 <Box
                     sx={{
@@ -48,7 +38,7 @@ const MenuModal = ({
                         outline: 'none'
                     }}
                 >
-                    <Grid container direction='column'>
+                    <Grid container direction="column">
                         <Grid
                             item
                             sx={{
@@ -57,7 +47,7 @@ const MenuModal = ({
                                 borderBottom: `2px solid ${config.thirdColor}`
                             }}
                         >
-                            <Grid container direction='row' spacing={1} alignItems='center'>
+                            <Grid container direction="row" spacing={1} alignItems="center">
                                 <Grid item>
                                     <IconButton sx={{ p: 0 }} onClick={handleClose}>
                                         <IoChevronBack style={{ fontSize: '36px' }} />
@@ -76,9 +66,16 @@ const MenuModal = ({
                             </Grid>
                         </Grid>
                         <Grid item sx={{ p: 2 }}>
-                            <Grid container direction='column' spacing={2}>
+                            <Grid container direction="column" spacing={2}>
                                 <Grid item>
-                                    <div
+                                    <Image
+                                        priority={true}
+                                        sizes="100%"
+                                        alt="logo"
+                                        width={0}
+                                        height={0}
+                                        src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${menu.foodPhotoPath}`}
+                                        crossOrigin="anonymous"
                                         style={{
                                             width: '100%',
                                             height: '200px',
@@ -88,14 +85,12 @@ const MenuModal = ({
                                             alignItems: 'center',
                                             justifyContent: 'center'
                                         }}
-                                    >
-                                        img
-                                    </div>
+                                    />
                                 </Grid>
                                 <Grid item>
-                                    <Grid container direction='column' spacing={1}>
+                                    <Grid container direction="column" spacing={1}>
                                         <Grid item>
-                                            <Grid container direction='row' justifyContent='space-between'>
+                                            <Grid container direction="row" justifyContent="space-between">
                                                 <Grid item>
                                                     <Typography
                                                         sx={{
@@ -133,9 +128,9 @@ const MenuModal = ({
                                         <Grid item>
                                             <Grid
                                                 container
-                                                direction='row'
-                                                alignItems='center'
-                                                justifyContent='space-between'
+                                                direction="row"
+                                                alignItems="center"
+                                                justifyContent="space-between"
                                             >
                                                 <Grid item>
                                                     <Typography sx={{ color: config.secondaryColor, fontWeight: 500 }}>
@@ -200,9 +195,9 @@ const MenuModal = ({
                                 <Grid item>
                                     <Grid
                                         container
-                                        direction='row'
-                                        justifyContent='space-between'
-                                        alignItems='center'
+                                        direction="row"
+                                        justifyContent="space-between"
+                                        alignItems="center"
                                         spacing={2}
                                     >
                                         <Grid item>
@@ -255,7 +250,7 @@ const MenuModal = ({
                                                     transition: '0.3s all',
                                                     '&:hover': {
                                                         backgroundColor: config.primaryColor,
-                                                        opacity: 0.8,
+                                                        opacity: 0.8
                                                     }
                                                 }}
                                                 disabled={quantity === 0}

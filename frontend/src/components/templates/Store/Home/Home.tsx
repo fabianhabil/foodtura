@@ -15,14 +15,14 @@ const StoreHome = () => {
 
     return (
         <>
-            <Grid container direction='column'>
+            <Grid container direction="column">
                 <Grid
                     item
                     container
-                    direction='column-reverse'
-                    alignItems='center'
+                    direction="column-reverse"
+                    alignItems="center"
                     sx={{
-                        backgroundImage: `url("${config.homePhotoPath}")`,
+                        backgroundImage: `url("${process.env.NEXT_PUBLIC_API_URL}/public/images/${config.homePhotoPath}?cacheblock=true")`,
                         width: '100%',
                         height: '250px',
                         backgroundSize: 'cover',
@@ -42,7 +42,7 @@ const StoreHome = () => {
                             width: { md: '65%', xs: '80%' }
                         }}
                     >
-                        <Grid container direction='column' spacing={2} alignItems='center'>
+                        <Grid container direction="column" spacing={2} alignItems="center">
                             <Grid item>
                                 <Typography
                                     sx={{
@@ -89,7 +89,7 @@ const StoreHome = () => {
                     </Grid>
                 </Grid>
                 <Grid item sx={{ mt: 15 }}>
-                    <Grid container direction='column' alignItems='center' spacing={0}>
+                    <Grid container direction="column" alignItems="center" spacing={0}>
                         <Grid item>
                             <Typography sx={{ color: config.secondaryColor, fontWeight: 'bold', fontSize: '20px' }}>
                                 ABOUT US
@@ -97,11 +97,11 @@ const StoreHome = () => {
                         </Grid>
                         <Grid item>
                             <Image
-                                src={config.aboutPhotoPath}
-                                alt='about'
-                                width='0'
-                                height='0'
-                                sizes='100%'
+                                src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${config.aboutPhotoPath}`}
+                                alt="about"
+                                width="0"
+                                height="0"
+                                sizes="100%"
                                 style={{ width: '350px', height: '100%' }}
                             />
                         </Grid>

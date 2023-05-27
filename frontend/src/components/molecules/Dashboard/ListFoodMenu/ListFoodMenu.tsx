@@ -7,6 +7,7 @@ import { CiHeart } from 'react-icons/ci';
 import { GiChiliPepper } from 'react-icons/gi';
 import { MdEdit } from 'react-icons/md';
 import DeleteFoodModal from '../DeleteFoodModal/DeleteFoodModal';
+import Image from 'next/image';
 
 const ListFoodMenu = ({ data }: { data: FoodType }) => {
     const [deleteModal, setDeleteModal] = useState<boolean>(false);
@@ -30,8 +31,12 @@ const ListFoodMenu = ({ data }: { data: FoodType }) => {
                 <Grid item>
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item>
-                            <img
-                                src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${data.foodPhotoPath}?cacheblock=true`}
+                            <Image
+                                priority={true}
+                                width={0}
+                                height={0}
+                                sizes="100%"
+                                src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${data.foodPhotoPath}`}
                                 style={{
                                     height: '100px',
                                     width: '100px',

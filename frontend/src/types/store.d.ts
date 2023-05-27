@@ -1,10 +1,11 @@
 import type { Dispatch, SetStateAction } from 'react';
+import { type FoodType as FoodTypeStore } from '@/types/dashboard';
 
 export interface StoreContextType {
     storeInfo: StoreInfoType;
     cart: FoodCartType[];
     confirmedCart: FoodCartType[];
-    addItemToCart: (food: FoodType, qty: number, notes: string) => void;
+    addItemToCart: (food: FoodTypeStore, qty: number, notes: string) => void;
     openCart: boolean;
     setOpenCart: Dispatch<SetStateAction<boolean>>;
     removeItemFromCart: (index: number) => void;
@@ -41,8 +42,11 @@ export interface FoodType {
     name: string;
     description: string;
     price: number;
-    isSpicy?: boolean;
-    isMerchantFavorite?: boolean;
+    isSpicy: boolean;
+    isMerchantFavorite: boolean;
+    foodPhotoPath: string;
+    foodCategoryId?: number;
+    foodCategory?: FoodCategoryType;
 }
 
 export interface FoodCartType extends FoodType {

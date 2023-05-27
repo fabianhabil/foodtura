@@ -17,29 +17,30 @@ const Footer = () => {
 
     return (
         <>
-            <Box component='div' sx={{ minHeight: '250px', backgroundColor: config.secondaryColor }}>
-                <Grid container direction='column' justifyContent='space-between'>
+            <Box component="div" sx={{ minHeight: '250px', backgroundColor: config.secondaryColor }}>
+                <Grid container direction="column" justifyContent="space-between">
                     <Grid
                         item
                         container
-                        direction='row'
+                        direction="row"
                         sx={{ minHeight: '250px', p: 4, px: 2 }}
                         spacing={3}
-                        alignItems='stretch'
+                        alignItems="stretch"
                     >
-                        <Grid item container direction='column' spacing={1} xs={3} alignItems='center'>
+                        <Grid item container direction="column" spacing={1} xs={3} alignItems="center">
                             <Grid item>
                                 <Image
                                     width={0}
                                     height={0}
-                                    sizes='100%'
+                                    sizes="100%"
                                     style={{ maxWidth: '100px', width: '100%', height: 'auto' }}
-                                    src={config.logoPhotoPath}
-                                    alt='logo-restoran'
+                                    src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${config.logoPhotoPath}`}
+                                    alt="logo-restoran"
+                                    crossOrigin="anonymous"
                                 />
                             </Grid>
                         </Grid>
-                        <Grid item container direction='column' spacing={1} xs={4}>
+                        <Grid item container direction="column" spacing={1} xs={4}>
                             <Grid item>
                                 <Typography sx={style.title}>ADDRESS</Typography>
                             </Grid>
@@ -47,18 +48,18 @@ const Footer = () => {
                                 <Typography sx={style.content}>JL. Palmerah No. 103</Typography>
                             </Grid>
                         </Grid>
-                        <Grid item container direction='column' spacing={1} xs={5}>
+                        <Grid item container direction="column" spacing={1} xs={5}>
                             <Grid item>
                                 <Typography sx={style.title}>CONTACT US</Typography>
                             </Grid>
-                            <Grid item container direction='column' spacing={1}>
+                            <Grid item container direction="column" spacing={1}>
                                 <Grid item>
                                     <Typography sx={style.content}>Monday - Sunday (10.00 - 21.00)</Typography>
                                 </Grid>
                                 <Grid item>
-                                    <Grid container direction='row' spacing={1}>
+                                    <Grid container direction="row" spacing={1}>
                                         <Grid item>
-                                            <BsWhatsapp color='white' />
+                                            <BsWhatsapp color="white" />
                                         </Grid>
                                         <Grid item>
                                             <Typography sx={style.content}>0812 3456 7890</Typography>
@@ -66,9 +67,9 @@ const Footer = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <Grid container direction='row' spacing={1}>
+                                    <Grid container direction="row" spacing={1}>
                                         <Grid item>
-                                            <BsInstagram color='white' />
+                                            <BsInstagram color="white" />
                                         </Grid>
                                         <Grid item>
                                             <Typography sx={style.content}>@foodtura.id</Typography>
@@ -76,9 +77,9 @@ const Footer = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <Grid container direction='row' spacing={1}>
+                                    <Grid container direction="row" spacing={1}>
                                         <Grid item>
-                                            <AiOutlineMail color='white' />
+                                            <AiOutlineMail color="white" />
                                         </Grid>
                                         <Grid item>
                                             <Typography sx={style.content}>foodtura@gmail.com</Typography>

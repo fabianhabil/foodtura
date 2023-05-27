@@ -1,6 +1,6 @@
 export const menuCategory: string[] = ['Appetizer', 'La Pizza', 'Beverages', 'Desert'];
 
-export const menu = [
+export const menu: any = [
     [
         {
             name: 'Fried Calamari',

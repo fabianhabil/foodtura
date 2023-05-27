@@ -21,3 +21,17 @@ export class MerchantEditDTO extends MerchantDTO {
     @IsString()
     address!: string;
 }
+
+export class MerchantConfigDTO {
+    @IsString()
+    primaryColor!: string;
+
+    @IsString()
+    secondaryColor!: string;
+
+    @IsString()
+    thirdColor!: string;
+
+    @IsString()
+    aboutDescription!: string;
+}

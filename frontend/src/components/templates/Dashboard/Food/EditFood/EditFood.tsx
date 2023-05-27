@@ -187,7 +187,11 @@ const EditFood = () => {
                                             <Grid item>
                                                 <Select
                                                     fullWidth
-                                                    value={selectedCategory}
+                                                    value={Number(
+                                                        foodCategory.findIndex(
+                                                            (data) => data.foodCategoryId === foodData.foodCategoryId
+                                                        ) + 1
+                                                    ).toString()}
                                                     label="Sort By"
                                                     variant="standard"
                                                     onChange={(e: SelectChangeEvent) =>

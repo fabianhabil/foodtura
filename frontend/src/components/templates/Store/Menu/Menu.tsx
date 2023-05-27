@@ -1,14 +1,16 @@
+import api from '@/api/axios-instance';
 import FoodCategoryButton from '@/components/atoms/Store/FoodCategoryButton/FoodCategoryButton';
 import FoodMenu from '@/components/atoms/Store/FoodMenu/FoodMenu';
-import { menu, menuCategory, SortMenu } from '@/components/constants/Menu/MenuMock';
+import ToastError from '@/components/atoms/Toast/ToastError';
+import { SortMenu } from '@/components/constants/Menu/MenuMock';
 import CartModal from '@/components/molecules/Store/CartModal/CartModal';
 import MenuModal from '@/components/molecules/Store/MenuModal/MenuModal';
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
 import { returnMenu } from '@/helper/filterMenu';
-import type { FoodType } from '@/types/store';
+import type { FoodCategoryType, FoodType } from '@/types/dashboard';
 import { Grid, InputAdornment, MenuItem, Select, TextField } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 const Menu = () => {
@@ -17,11 +19,44 @@ const Menu = () => {
         name: '',
         description: '',
         price: 0,
-        isSpicy: false
+        isSpicy: false,
+        isMerchantFavorite: false,
+        foodPhotoPath: '',
+        foodCategoryId: -1
     });
+    const [loading, setLoading] = useState<boolean>(true);
+    const [food, setFood] = useState<FoodType[]>([]);
+    const [foodCategory, setFoodCategory] = useState<FoodCategoryType[]>([]);
     const [openModalMenu, setOpenModalMenu] = useState<boolean>(false);
     const [selectedSort, setSelectedSort] = useState<string>('0');
     const [search, setSearch] = useState<string>('');
+
+    const { storeInfo } = useContext(StoreContext)!;
+
+    const getFoodCategory = async () => {
+        try {
+            const response = await api.get(`/food/category/merchant/${storeInfo.merchantId}`);
+            if (response) {
+                setFoodCategory(() => response.data.data.foodCategory);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const getAllFood = async () => {
+        try {
+            const response = await api.get(`/food/get/${storeInfo.merchantId}`);
+            if (response) {
+                console.log(response);
+                setFood(() => response.data.data.food);
+                setLoading(() => false);
+            }
+        } catch (e) {
+            console.log(e);
+            ToastError('Server Error!');
+        }
+    };
 
     const {
         storeInfo: { config }
@@ -32,6 +67,15 @@ const Menu = () => {
         setSearch(() => '');
     };
 
+    useEffect(() => {
+        if (storeInfo.merchantId) {
+            getFoodCategory();
+            getAllFood();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [storeInfo]);
+    console.log(foodCategory);
+
     return (
         <>
             <MenuModal
@@ -40,9 +84,9 @@ const Menu = () => {
                 menu={selectedMenu}
             />
             <CartModal />
-            <Grid container direction='column' spacing={2}>
-                <Grid item container direction='row'>
-                    {menuCategory.map((data, index) => {
+            <Grid container direction="column" spacing={2}>
+                <Grid item container direction="row">
+                    {foodCategory.map((data, index) => {
                         return (
                             <Grid item xs key={index} sx={{ width: '100%' }}>
                                 <FoodCategoryButton
@@ -54,14 +98,14 @@ const Menu = () => {
                                     }}
                                     index={index}
                                     setSelectedCategory={setSelectedCategory}
-                                    title={data}
+                                    title={data.name}
                                     resetQuery={resetQuery}
                                 />
                             </Grid>
                         );
                     })}
                 </Grid>
-                <Grid item container direction='row' justifyContent='space-between'>
+                <Grid item container direction="row" justifyContent="space-between">
                     <Grid item>
                         <TextField
                             onChange={(e) => setSearch(e.target.value)}
@@ -102,10 +146,10 @@ const Menu = () => {
                                     fontSize: '18px'
                                 }
                             }}
-                            placeholder='Search Food'
+                            placeholder="Search Food"
                             InputProps={{
                                 startAdornment: (
-                                    <InputAdornment position='start'>
+                                    <InputAdornment position="start">
                                         <AiOutlineSearch />
                                     </InputAdornment>
                                 )
@@ -115,8 +159,8 @@ const Menu = () => {
                     <Grid item>
                         <Select
                             value={selectedSort}
-                            label='Sort By'
-                            variant='standard'
+                            label="Sort By"
+                            variant="standard"
                             onChange={(e: SelectChangeEvent) => setSelectedSort(() => e.target.value)}
                         >
                             <MenuItem value={0}>Sort By</MenuItem>
@@ -130,10 +174,14 @@ const Menu = () => {
                         </Select>
                     </Grid>
                 </Grid>
-                {returnMenu(menu[selectedCategory], selectedSort).length === 0 ? null : (
-                    <>
-                        <Grid item container direction='column' spacing={3}>
-                            {returnMenu(menu[selectedCategory], selectedSort)
+                {loading ? null : (
+                    <Grid item>
+                        <Grid container direction="column" spacing={2}>
+                            {returnMenu(food, selectedSort)
+                                .filter(
+                                    (data) =>
+                                        data?.foodCategoryId === foodCategory[Number(selectedCategory)].foodCategoryId
+                                )
                                 .filter(
                                     (data) =>
                                         search === '' ||
@@ -156,7 +204,7 @@ const Menu = () => {
                                     );
                                 })}
                         </Grid>
-                    </>
+                    </Grid>
                 )}
             </Grid>
         </>

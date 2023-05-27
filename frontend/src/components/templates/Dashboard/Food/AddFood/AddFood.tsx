@@ -56,6 +56,7 @@ const AddFood = () => {
             if (blobFood === null) {
                 ToastError('Please upload a photo!');
             }
+
             const formData: any = new FormData();
             formData.append('name', foodData.name);
             formData.append('price', foodData.price);

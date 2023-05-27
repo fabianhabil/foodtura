@@ -4,6 +4,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import type { Dispatch, SetStateAction } from 'react';
 import { GiChiliPepper } from 'react-icons/gi';
 import { CiHeart } from 'react-icons/ci';
+import Image from 'next/image';
 
 const FoodMenu = ({
     data,
@@ -19,7 +20,7 @@ const FoodMenu = ({
     return (
         <>
             <Box
-                component='div'
+                component="div"
                 onClick={() => {
                     setSelectedMenu(() => data);
                     setOpenModal(() => true);
@@ -28,9 +29,9 @@ const FoodMenu = ({
             >
                 <Grid
                     container
-                    direction='row'
-                    justifyContent='space-between'
-                    alignItems='center'
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
                     sx={{
                         backgroundColor: hexToRgbA(color.primary, '0.3'),
                         p: 2,
@@ -43,24 +44,28 @@ const FoodMenu = ({
                     }}
                 >
                     <Grid item>
-                        <div
+                        <Image
+                            priority={true}
+                            sizes="100%"
+                            alt="logo"
+                            width={0}
+                            height={0}
+                            src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${data.foodPhotoPath}`}
+                            crossOrigin="anonymous"
                             style={{
                                 height: '80px',
                                 width: '80px',
                                 borderRadius: '50%',
-                                backgroundColor: 'gray',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center'
                             }}
-                        >
-                            img
-                        </div>
+                        />
                     </Grid>
                     <Grid item xs={6} sm={8}>
-                        <Grid container direction='column' sx={{ width: '100%' }}>
+                        <Grid container direction="column" sx={{ width: '100%' }}>
                             <Grid item>
-                                <Grid container direction='row' spacing={1} alignItems='center'>
+                                <Grid container direction="row" spacing={1} alignItems="center">
                                     <Grid item>
                                         <Typography
                                             sx={{

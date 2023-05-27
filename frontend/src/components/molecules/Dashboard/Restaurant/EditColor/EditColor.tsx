@@ -12,15 +12,15 @@ const EditColor = ({
 }) => {
     return (
         <>
-            <Grid container direction='column' justifyContent='space-between' sx={{ minHeight: '230px', p: 2 }}>
+            <Grid container direction="column" justifyContent="space-between" sx={{ minHeight: '230px', p: 2 }}>
                 <Grid item>
                     <Typography sx={{ color: '#0E2979', fontSize: '24px', fontWeight: 600 }}>Color</Typography>
                 </Grid>
                 <Grid item>
-                    <Grid container direction='row' justifyContent='space-around' alignItems='center'>
+                    <Grid container direction="row" justifyContent="space-around" alignItems="center">
                         <Grid item>
                             <EditColorButton
-                                title='Primary Color'
+                                title="Primary Color"
                                 colorInit={color.primaryColor}
                                 setNewColor={(newColor: string) =>
                                     setMerchant((state) => ({
@@ -32,7 +32,7 @@ const EditColor = ({
                         </Grid>
                         <Grid item>
                             <EditColorButton
-                                title='Secondary Color'
+                                title="Secondary Color"
                                 colorInit={color.secondaryColor}
                                 setNewColor={(newColor: string) =>
                                     setMerchant((state) => ({
@@ -44,7 +44,7 @@ const EditColor = ({
                         </Grid>
                         <Grid item>
                             <EditColorButton
-                                title='Third Color'
+                                title="Third Color"
                                 colorInit={color.thirdColor}
                                 setNewColor={(newColor: string) =>
                                     setMerchant((state) => ({
