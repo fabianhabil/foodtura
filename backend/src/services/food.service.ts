@@ -23,7 +23,7 @@ export class FoodService {
             throw Errors.UUID_NOT_VALID;
         }
 
-        const merchant = await this.merchantService.get(merchantId);
+        const merchant = await this.merchantService.getById(merchantId);
 
         if (!merchant) {
             throw Errors.MERCHANT_NOT_FOUND;
@@ -78,7 +78,7 @@ export class FoodService {
     }
 
     async createCategory(dto: FoodCategoryDTO) {
-        const merchant = await this.merchantService.get(dto.merchantId);
+        const merchant = await this.merchantService.getById(dto.merchantId);
 
         if (!merchant) {
             throw Errors.USER_NOT_FOUND;
@@ -107,7 +107,7 @@ export class FoodService {
             throw Errors.UUID_NOT_VALID;
         }
 
-        const merchant = await this.merchantService.get(merchantId);
+        const merchant = await this.merchantService.getById(merchantId);
 
         if (!merchant) {
             throw Errors.MERCHANT_NOT_FOUND;

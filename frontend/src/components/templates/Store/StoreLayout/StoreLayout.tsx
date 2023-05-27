@@ -14,9 +14,9 @@ const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
 
     return (
         <StoreContextProvider>
-            <Box component='div' sx={{ backgroundColor: '#FAF7F7' }}>
+            <Box component="div" sx={{ backgroundColor: '#FAF7F7' }}>
                 <Box
-                    component='div'
+                    component="div"
                     sx={{
                         backgroundColor: 'white',
                         maxWidth: '600px',
@@ -28,10 +28,10 @@ const StoreLayout: React.FC<ComponentWithChildren> = ({ children }) => {
                     }}
                 >
                     {pathList[2] === 'rsvp' ? <NavbarRsvp /> : <Navbar setOpenSidebar={setOpen} />}
-                    <Container maxWidth='xl' sx={{ py: 2, minHeight: '55.2vh', pb: 3 }}>
+                    <Container maxWidth="xl" sx={{ py: 2, minHeight: '55.2vh', pb: 3 }}>
                         {children}
                     </Container>
-                    <Footer />
+                    {pathList.length !== 1 ? <Footer /> : null}
                     <Sidebar open={open} setOpen={setOpen} />
                 </Box>
             </Box>

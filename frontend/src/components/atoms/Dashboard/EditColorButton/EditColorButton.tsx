@@ -11,7 +11,7 @@ const EditColorButton = ({
     setNewColor: (arg: string) => void;
     title: string;
 }) => {
-    const [color, setColor] = useState(colorInit ? null : '#000000');
+    const [color, setColor] = useState(colorInit ? colorInit : '#000000');
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,7 +27,7 @@ const EditColorButton = ({
 
     return (
         <>
-            <Grid container direction='column' alignItems='center'>
+            <Grid container direction="column" alignItems="center">
                 <Grid item sx={{ pb: 1 }}>
                     <Typography>{title}</Typography>
                 </Grid>

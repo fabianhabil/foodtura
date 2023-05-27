@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Service } from 'typedi';
 import { Merchant } from '../database/entities/merchant.entity';
 import { Errors } from '../utils/api.util';
-import type { MerchantDTO, MerchantEditDTO } from '../validations/merchant.validation';
+import type { MerchantConfigDTO, MerchantDTO, MerchantEditDTO } from '../validations/merchant.validation';
 import { UserService } from './user.service';
 import { MerchantConfigService } from './config.service';
+import { MerchantConfig } from '../database/entities/merchantconfig.entity';
 
 @Service()
 export class MerchantService {
@@ -27,7 +29,7 @@ export class MerchantService {
         return user;
     }
 
-    async get(merchantId: string) {
+    async getById(merchantId: string) {
         const merchant = await Merchant.findOne({ where: { merchantId }, relations: { config: true } });
 
         if (!merchant) {
@@ -37,14 +39,24 @@ export class MerchantService {
         return merchant;
     }
 
+    async getByUrl(merchantUrl: string) {
+        const merchant = await Merchant.findOne({ where: { merchantUrl }, relations: { config: true } });
+
+        if (!merchant) {
+            throw Errors.MERCHANT_NOT_FOUND;
+        }
+
+        return merchant;
+    }
+
     async delete(merchantId: string) {
-        const merchant = await this.get(merchantId);
+        const merchant = await this.getById(merchantId);
 
         await Merchant.remove(merchant);
     }
 
     async edit(merchantId: string, { merchantUrl, name, address }: MerchantEditDTO) {
-        const merchant = await this.get(merchantId);
+        const merchant = await this.getById(merchantId);
         const isMerchantUrlTaken = await Merchant.findOneBy({ merchantUrl });
 
         if (isMerchantUrlTaken) {
@@ -62,5 +74,41 @@ export class MerchantService {
         const merchant = await Merchant.find();
 
         return merchant;
+    }
+
+    async editMerchantConfig(dto: MerchantConfigDTO, fileLogo: any, fileHome: any, fileAbout: any, merchantId: string) {
+        const merchantConfigId = (await this.getById(merchantId)).merchantConfigId;
+        const merchantConfig = await MerchantConfig.findOne({ where: { merchantConfigId } });
+
+        if (merchantConfig === null) {
+            throw Errors.MERCHANT_NOT_FOUND;
+        }
+
+        merchantConfig.primaryColor = dto.primaryColor;
+        merchantConfig.secondaryColor = dto.secondaryColor;
+        merchantConfig.thirdColor = dto.thirdColor;
+        merchantConfig.aboutDescription = dto.aboutDescription;
+
+        if (fileLogo) {
+            merchantConfig.logoPhotoPath =
+                fileLogo.originalname === null || fileLogo.originalname === undefined
+                    ? merchantConfig.logoPhotoPath
+                    : fileLogo.originalname;
+        }
+
+        if (fileHome) {
+            merchantConfig.homePhotoPath =
+                fileHome.originalname === null || fileHome.originalname === undefined
+                    ? merchantConfig.homePhotoPath
+                    : fileHome.originalname;
+        }
+
+        if (fileAbout) {
+            merchantConfig.aboutPhotoPath =
+                fileAbout.originalname === null || fileAbout.originalname === undefined
+                    ? merchantConfig.aboutPhotoPath
+                    : fileAbout.originalname;
+        }
+        await merchantConfig.save();
     }
 }

@@ -18,7 +18,7 @@ function HideOnScroll(props: Props) {
     });
 
     return (
-        <Slide appear={false} direction='down' in={!trigger}>
+        <Slide appear={false} direction="down" in={!trigger}>
             {children}
         </Slide>
     );
@@ -31,12 +31,13 @@ const Navbar = (props: any) => {
         setOpenCart
     } = useContext(StoreContext)!;
     const pathRouteList = PathRouteList();
+
     return (
         <>
-            <div id='top' />
+            <div id="top" />
             <HideOnScroll {...props}>
                 <AppBar
-                    position='sticky'
+                    position="sticky"
                     sx={{
                         backgroundColor: config.primaryColor,
                         py: 0.5,
@@ -46,8 +47,8 @@ const Navbar = (props: any) => {
                     elevation={0}
                 >
                     <Toolbar disableGutters>
-                        <Container maxWidth='xl'>
-                            <Grid container direction='row' justifyContent='space-between' alignItems='center'>
+                        <Container maxWidth="xl">
+                            <Grid container direction="row" justifyContent="space-between" alignItems="center">
                                 <Grid item>
                                     <IconButton
                                         sx={{
@@ -61,14 +62,16 @@ const Navbar = (props: any) => {
                                     </IconButton>
                                 </Grid>
                                 <Grid item>
-                                    <Image
-                                        alt='logo'
-                                        src={config.logoPhotoPath}
-                                        width='0'
-                                        height='0'
-                                        sizes='100%'
-                                        style={{ width: 'auto', height: '100%', maxHeight: '80px' }}
-                                    />
+                                    {pathRouteList.length !== 1 ? (
+                                        <Image
+                                            alt="logo"
+                                            src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${config.logoPhotoPath}`}
+                                            width="0"
+                                            height="0"
+                                            sizes="100%"
+                                            style={{ width: 'auto', height: '100%', maxHeight: '80px' }}
+                                        />
+                                    ) : null}
                                 </Grid>
                                 {pathRouteList.length > 2 ? (
                                     <Grid item>
