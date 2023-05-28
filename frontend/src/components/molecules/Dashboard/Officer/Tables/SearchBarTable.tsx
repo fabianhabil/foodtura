@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
-import { TableDataType } from '@/types/dashboard';
+import type { TableDataType } from '@/types/dashboard';
 
 interface SearchBarTableProps {
     items: TableDataType[];

@@ -4,7 +4,7 @@ import FoodCartMenu from '@/components/atoms/Store/FoodCartMenu/FoodCartMenu';
 import ToastError from '@/components/atoms/Toast/ToastError';
 import ToastSuccess from '@/components/atoms/Toast/ToastSuccess';
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
-import type { FoodCartType } from '@/types/store';
+import type { FoodCartType, TransactionItem } from '@/types/store';
 import { Box, Button, Divider, Grid, Modal, Typography } from '@mui/material';
 import { useContext } from 'react';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
@@ -94,6 +94,14 @@ const CartModal = () => {
         }
     };
 
+    const countAllHarga = (cart: FoodCartType[] | TransactionItem[]) => {
+        let total = 0;
+        cart.map((data) => {
+            total += data.price;
+        });
+        return total;
+    };
+
     return (
         <>
             <Modal
@@ -157,6 +165,11 @@ const CartModal = () => {
                                             );
                                         })}
                                         <Grid item>
+                                            <Typography sx={{ textAlign: 'center' }}>
+                                                Total: Rp{countAllHarga(cart) / 1000}K
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item>
                                             <Button
                                                 sx={{
                                                     width: '100%',
@@ -203,6 +216,16 @@ const CartModal = () => {
                                         </Grid>
                                     );
                                 })}
+                                <Grid item>
+                                    <Typography sx={{ textAlign: 'center' }}>
+                                        Total: Rp{countAllHarga(confirmedCart) / 1000}K
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography sx={{ fontSize: '14px', textAlign: 'center' }}>
+                                        To pay your transaction, please proceed to the cashier.
+                                    </Typography>
+                                </Grid>
                             </>
                         )}
                     </Grid>

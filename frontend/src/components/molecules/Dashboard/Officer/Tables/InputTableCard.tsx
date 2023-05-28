@@ -1,22 +1,23 @@
-import { Button, FormControlLabel, FormHelperText, Grid, Snackbar, TextField, Typography } from '@mui/material';
+import { Button, FormHelperText, Grid, Snackbar, TextField, Typography } from '@mui/material';
 import { DashboardContext } from '@/contexts/DashboardContext/DashboardContext';
-import { TableDataType } from '@/types/dashboard';
+import type { TableDataType } from '@/types/dashboard';
 import { AxiosError } from 'axios';
 import ToastError from '@/components/atoms/Toast/ToastError';
 import ToastSuccess from '@/components/atoms/Toast/ToastSuccess';
 import api from '@/api/axios-instance';
 import { useContext, useState } from 'react';
+import { useRouter } from 'next/router';
 
-type ErrorDataInputTable = {
+interface ErrorDataInputTable {
     status: boolean;
     message: string;
-};
+}
 
 const InputTableCard = ({ tableIndex }: { tableIndex: number }) => {
     const { userData } = useContext(DashboardContext)!;
     const [onError, setOnError] = useState<ErrorDataInputTable>({ status: false, message: '' });
     const [tableInput, setTableInput] = useState<TableDataType>({
-        name: userData?.name as string,
+        name: `Table ${tableIndex}`,
         size: 0,
         merchantId: userData?.merchant?.merchantId as string,
         tableId: ''
@@ -26,14 +27,16 @@ const InputTableCard = ({ tableIndex }: { tableIndex: number }) => {
         setTableInput({ ...tableInput, size: parseInt(e.target.value) });
     };
 
+    const router = useRouter();
+
     const postTable = async () => {
         try {
-            const { data: response, status } = await api.post('/merchant/table/create', tableInput);
+            const { data: status } = await api.post('/merchant/table/create', tableInput);
 
             if (status === 200) {
                 ToastSuccess('New table successfuly created!');
+                router.reload();
             }
-            console.log(response, status);
         } catch (error) {
             if (error instanceof AxiosError) {
                 setOnError({ status: true, message: error?.message });
@@ -45,19 +48,19 @@ const InputTableCard = ({ tableIndex }: { tableIndex: number }) => {
     return (
         <>
             <Grid
+                container
                 sx={{
                     borderRadius: 2,
                     backgroundColor: 'white',
-                    paddingY: 4
+                    paddingY: 1
                 }}
-                flexDirection="column"
+                direction="column"
                 justifyItems="center"
-                display="flex"
+                spacing={2}
             >
                 <Grid item>
                     <Typography
                         sx={{
-                            paddingLeft: 4,
                             fontWeight: 'semibold',
                             fontSize: '20px'
                         }}
@@ -65,8 +68,6 @@ const InputTableCard = ({ tableIndex }: { tableIndex: number }) => {
                         {`Table ${tableIndex}`}
                     </Typography>
                 </Grid>
-
-                {/* INPUT PARTY */}
                 <Grid
                     item
                     sx={{
@@ -74,9 +75,7 @@ const InputTableCard = ({ tableIndex }: { tableIndex: number }) => {
                         justifyItems: 'space-around',
                         alignItems: 'center',
                         gap: '12px',
-                        width: '100%',
-                        marginLeft: 4,
-                        marginBottom: 2
+                        width: '100%'
                     }}
                 >
                     <label>Party Size: </label>
@@ -101,11 +100,13 @@ const InputTableCard = ({ tableIndex }: { tableIndex: number }) => {
                         aria-describedby="name"
                     />
                     <FormHelperText id="name" sx={{ color: 'red', ml: 1.5 }}></FormHelperText>
+                </Grid>
+                <Grid item>
                     <Button variant="contained" onClick={postTable}>
-                        SET
+                        Create table
                     </Button>
                 </Grid>
-                <Snackbar open={onError.status} autoHideDuration={6000} onClose={() => {}} message={onError.message} />
+                <Snackbar open={onError.status} autoHideDuration={6000} message={onError.message} />
             </Grid>
         </>
     );

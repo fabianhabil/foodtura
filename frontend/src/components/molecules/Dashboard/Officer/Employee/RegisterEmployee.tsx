@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { isAxiosError } from 'axios';
 import api from '@/api/axios-instance';
 import { RiAccountCircleFill } from 'react-icons/ri';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { validateEmail } from '@/helper/validateEmail';
 import { textFieldStyles } from '@/components/atoms/Textfield/Textfield';
 import { Grid, Typography, Button, TextField, FormHelperText, Alert, InputAdornment, IconButton } from '@mui/material';
@@ -10,15 +10,12 @@ import ToastError from '@/components/atoms/Toast/ToastError';
 import ToastSuccess from '@/components/atoms/Toast/ToastSuccess';
 import { AiFillLock } from 'react-icons/ai';
 import { MdEmail, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-
 import type { UserRegisterType } from '@/types/dashboard';
+import { DashboardContext } from '@/contexts/DashboardContext/DashboardContext';
 
-interface IRegisterEmployeeProps {}
-interface EmployeeRegisterType extends UserRegisterType {}
-
-const RegisterEmployee: React.FC<IRegisterEmployeeProps> = () => {
+const RegisterEmployee = () => {
     const styles = textFieldStyles();
-    const [register, setRegister] = useState<EmployeeRegisterType>({
+    const [register, setRegister] = useState<UserRegisterType>({
         name: '',
         email: '',
         password: '',
@@ -31,6 +28,7 @@ const RegisterEmployee: React.FC<IRegisterEmployeeProps> = () => {
     const router = useRouter();
     const handleClickPassword = () => setShowPassword(!showPassword);
     const handleClickPassword2 = () => setShowPassword2(!showPassword2);
+    const { userData } = useContext(DashboardContext)!;
 
     function registerAccount() {
         if (!(validateEmail(register.email) && register.password === register.confirmPassword && register.name)) {
@@ -43,13 +41,17 @@ const RegisterEmployee: React.FC<IRegisterEmployeeProps> = () => {
 
     async function postRegister() {
         try {
-            const response = await api.post('/auth/register', register);
+            const response = await api.post('/users/officer', {
+                ...register,
+                merchantId: userData?.merchant?.merchantId
+            });
             if (response) {
                 ToastSuccess('Register Berhasil!');
                 router.reload();
             }
         } catch (e) {
             if (isAxiosError(e)) {
+                console.log(e);
                 if (e?.response?.status === 409) {
                     ToastError('Email Registered! Please use another Email');
                 }
@@ -61,7 +63,7 @@ const RegisterEmployee: React.FC<IRegisterEmployeeProps> = () => {
 
     return (
         <>
-            <Grid container justifyContent="center" alignItems="center" direction="column">
+            <Grid container justifyContent="center" alignItems="center" direction="column" sx={{ mt: 4 }}>
                 <Alert sx={{ position: 'relative', bottom: 24, minWidth: { xs: '80%', md: '500px' } }} severity="info">
                     When you enroll a new member, the role type is automatically set to `Officer`!
                 </Alert>

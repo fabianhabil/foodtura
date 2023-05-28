@@ -1,4 +1,4 @@
-import { IsEnum, IsUUID } from 'class-validator';
+import { IsEnum, IsNumber, IsUUID } from 'class-validator';
 import { TransactionStatus } from '../database/entities/transaction.entity';
 
 export class CreateTransactionDTO {
@@ -12,4 +12,7 @@ export class CreateTransactionDTO {
 export class EditTransactionDTO {
     @IsEnum(TransactionStatus)
     status!: TransactionStatus;
+
+    @IsNumber()
+    totalPrice!: number;
 }

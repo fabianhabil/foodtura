@@ -50,12 +50,17 @@ export class TransactionItemService {
     async editTransactionItem(dto: FoodEditDTO, transactionItemId: number) {
         const transactionItem = await this.getTransactionItem(transactionItemId);
 
-        transactionItem.quantity = dto.quantity;
-        transactionItem.price = dto.price;
-        transactionItem.transactionId = dto.transactionId;
-        transactionItem.foodId = dto.foodId;
         transactionItem.isCooked = dto.isCooked;
 
         await transactionItem.save();
+    }
+
+    async getActiveTransactionItem(merchantId: string) {
+        const transactionItems = await TransactionItem.find({
+            where: { transaction: { merchant: { merchantId } }, isCooked: false },
+            relations: { transaction: { tableMerchant: true }, food: { foodCategory: true } }
+        });
+
+        return transactionItems;
     }
 }

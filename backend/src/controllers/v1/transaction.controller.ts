@@ -1,7 +1,7 @@
 import { Body, Delete, Get, JsonController, Param, Post, Put, Res } from 'routing-controllers';
 import { Service } from 'typedi';
 import { TransactionSercice } from '../../services/transaction.service';
-import { CreateTransactionDTO, EditTransactionDTO } from '../../validations/transaction.validation';
+import { CreateTransactionDTO } from '../../validations/transaction.validation';
 import { Response } from 'express';
 import { sendResponse } from '../../utils/api.util';
 
@@ -48,7 +48,8 @@ export class TransactionController {
     async editTransaction(
         @Res() res: Response,
         @Param('transactionId') transactionId: number,
-        dto: EditTransactionDTO
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        @Body() dto: any
     ) {
         await this.transactionService.editTransaction(dto, transactionId);
 

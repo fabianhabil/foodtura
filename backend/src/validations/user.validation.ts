@@ -1,4 +1,4 @@
-import { IsString, MaxLength, IsEmail } from 'class-validator';
+import { IsString, MaxLength, IsEmail, IsUUID } from 'class-validator';
 
 /**
  * - (?=.*\d) is checking for numbers between 0-9.
@@ -25,4 +25,7 @@ export class RegisterDTO extends LoginDTO {
     name!: string;
 }
 
-
+export class RegisterOfficerDTO extends RegisterDTO {
+    @IsUUID()
+    merchantId!: string;
+}

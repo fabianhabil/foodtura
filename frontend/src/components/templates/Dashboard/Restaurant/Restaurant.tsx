@@ -112,97 +112,104 @@ const Restaurant = () => {
 
     return (
         <>
-            <Grid container direction='row' sx={{ minHeight: '80vh' }} justifyContent='space-between'>
-                <Grid item xs md sm>
-                    <Grid
-                        container
-                        direction='column'
-                        justifyContent='space-between'
-                        sx={{ minHeight: '80vh' }}
-                        spacing={2}
-                    >
-                        <Grid item>
-                            <div style={{ backgroundColor: 'white', borderRadius: '24px' }}>
-                                <EditColor
-                                    color={{
-                                        primaryColor: merchant.config.primaryColor,
-                                        secondaryColor: merchant.config.secondaryColor,
-                                        thirdColor: merchant.config.thirdColor
-                                    }}
-                                    setMerchant={setMerchant}
-                                />
-                            </div>
-                        </Grid>
-                        <Grid item>
-                            <div style={{ backgroundColor: 'white', borderRadius: '24px' }}>
-                                <AboutRestaurant
-                                    blobAbout={blobAbout}
-                                    setBlobAbout={setBlobAbout}
-                                    src={merchant.config.aboutPhotoPath}
-                                />
-                            </div>
-                        </Grid>
-                        <Grid item container spacing={2}>
-                            <Grid item md={6} xs={12}>
+            {loading ? null : (
+                <Grid container direction="row" sx={{ minHeight: '80vh' }} justifyContent="space-between">
+                    <Grid item xs md sm>
+                        <Grid
+                            container
+                            direction="column"
+                            justifyContent="space-between"
+                            sx={{ minHeight: '80vh' }}
+                            spacing={2}
+                        >
+                            <Grid item>
                                 <div style={{ backgroundColor: 'white', borderRadius: '24px' }}>
-                                    <LogoRestaurant
-                                        blobLogo={blobLogo}
-                                        setBlobLogo={setBlobLogo}
-                                        src={merchant.config.logoPhotoPath}
+                                    <EditColor
+                                        color={{
+                                            primaryColor: merchant.config.primaryColor,
+                                            secondaryColor: merchant.config.secondaryColor,
+                                            thirdColor: merchant.config.thirdColor
+                                        }}
+                                        setMerchant={setMerchant}
                                     />
                                 </div>
                             </Grid>
-                            <Grid item md={6} xs={12}>
+                            <Grid item>
                                 <div style={{ backgroundColor: 'white', borderRadius: '24px' }}>
-                                    <HomeRestaurant
-                                        blobHome={blobHome}
-                                        setBlobHome={setBlobHome}
-                                        src={merchant.config.homePhotoPath}
+                                    <AboutRestaurant
+                                        description={merchant.config.aboutDescription}
+                                        blobAbout={blobAbout}
+                                        setBlobAbout={setBlobAbout}
+                                        src={merchant.config.aboutPhotoPath}
+                                        setMerchant={setMerchant}
                                     />
                                 </div>
                             </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                fullWidth
-                                sx={{
-                                    width: '100%',
-                                    backgroundColor: '#0E2979',
-                                    color: 'white',
-                                    textTransform: 'none',
-                                    borderRadius: '8px',
-                                    '&:hover': {
+                            <Grid item container spacing={2} sx={{ height: '100%' }} direction="row">
+                                <Grid item md={6} xs={12} sx={{ height: '100%' }}>
+                                    <div style={{ backgroundColor: 'white', borderRadius: '24px', height: '100%' }}>
+                                        <LogoRestaurant
+                                            blobLogo={blobLogo}
+                                            setBlobLogo={setBlobLogo}
+                                            src={merchant.config.logoPhotoPath}
+                                            setMerchant={setMerchant}
+                                        />
+                                    </div>
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <div style={{ backgroundColor: 'white', borderRadius: '24px' }}>
+                                        <HomeRestaurant
+                                            blobHome={blobHome}
+                                            setBlobHome={setBlobHome}
+                                            src={merchant.config.homePhotoPath}
+                                            setMerchant={setMerchant}
+                                        />
+                                    </div>
+                                </Grid>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    fullWidth
+                                    sx={{
+                                        width: '100%',
                                         backgroundColor: '#0E2979',
-                                        opacity: 0.8
-                                    },
-                                    transition: '0.3s all'
-                                }}
-                            >
-                                Save Appearances
-                            </Button>
+                                        color: 'white',
+                                        textTransform: 'none',
+                                        borderRadius: '8px',
+                                        '&:hover': {
+                                            backgroundColor: '#0E2979',
+                                            opacity: 0.8
+                                        },
+                                        transition: '0.3s all'
+                                    }}
+                                    onClick={updateMerchantConfig}
+                                >
+                                    Save Appearances
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid
-                    item
-                    sx={{
-                        display: { xs: 'none', sm: 'none', md: 'flex' },
-                        backgroundColor: 'white',
-                        borderRadius: '24px',
-                        width: '350px',
-                        ml: 2,
-                        p: 2
-                    }}
-                >
-                    <Preview
-                        color={{
-                            primaryColor: merchant.config.primaryColor,
-                            secondaryColor: merchant.config.secondaryColor,
-                            thirdColor: merchant.config.thirdColor
+                    <Grid
+                        item
+                        sx={{
+                            display: { xs: 'none', sm: 'none', md: 'flex' },
+                            backgroundColor: 'white',
+                            borderRadius: '24px',
+                            width: '350px',
+                            ml: 2,
+                            p: 2
                         }}
-                    />
+                    >
+                        <Preview
+                            color={{
+                                primaryColor: merchant.config.primaryColor,
+                                secondaryColor: merchant.config.secondaryColor,
+                                thirdColor: merchant.config.thirdColor
+                            }}
+                        />
+                    </Grid>
                 </Grid>
-            </Grid>
+            )}
         </>
     );
 };

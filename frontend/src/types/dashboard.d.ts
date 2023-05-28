@@ -1,4 +1,4 @@
-import type { ReactElement, ComponentProps } from 'react';
+import type { ReactElement } from 'react';
 
 export interface DashboardContextType {
     isAuthenticated: boolean;

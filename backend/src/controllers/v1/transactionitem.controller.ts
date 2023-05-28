@@ -27,6 +27,13 @@ export class TransactionItemController {
         });
     }
 
+    @Get('/get/active/:merchantId')
+    async getActiveTransactionItem(@Res() res: Response, @Param('merchantId') merchantId: string) {
+        const transactionItem = await this.transactionItemService.getActiveTransactionItem(merchantId);
+
+        return sendResponse(res, { message: 'success', data: { transactionItem } });
+    }
+
     @Get('/:transactionId')
     async getAllTransactionItem(@Res() res: Response, @Param('transactionId') transactionId: number) {
         const transactionItems = await this.transactionItemService.getAllTransactionItem(transactionId);

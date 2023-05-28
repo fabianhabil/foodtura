@@ -22,7 +22,7 @@ export class FoodDTO {
     notes!: string;
 }
 
-export class FoodEditDTO extends FoodDTO {
+export class FoodEditDTO {
     @IsBoolean()
     isCooked!: boolean;
 }

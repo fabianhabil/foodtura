@@ -69,6 +69,7 @@
         "prettier": "^2.8.8",
         "reflect-metadata": "^0.1.13",
         "routing-controllers": "^0.8.1",
+        "socket.io": "^4.6.1",
         "typedi": "^0.10.0",
         "typeorm": "^0.3.11",
         "winston": "^3.8.1",

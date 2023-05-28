@@ -4,7 +4,7 @@ import type { CorsOptions } from 'cors';
 dotenv.config();
 
 const { env } = process;
-const whitelistOrigin = ['http://localhost:3000'];
+const whitelistOrigin = ['http://localhost:3000', 'http://192.168.1.69:3000'];
 
 const corsOption: CorsOptions = {
     origin: (origin, callback) => {

@@ -66,6 +66,7 @@ export interface TableType {
     tableId: string;
     name: string;
     size: number;
+    transaction?: TransactionType[];
 }
 
 export interface TransactionType {
@@ -75,6 +76,7 @@ export interface TransactionType {
     status: number;
     tableMerchantId: string;
     transactionItem: TransactionItem[];
+    tableMerchant?: TableType;
 }
 
 export interface TransactionItem {
@@ -83,4 +85,5 @@ export interface TransactionItem {
     price: number;
     food: FoodTypeStore;
     notes: string;
+    transaction?: TransactionType;
 }
