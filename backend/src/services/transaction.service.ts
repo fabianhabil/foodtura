@@ -11,6 +11,8 @@ export class TransactionSercice {
         });
 
         await Transaction.save(transaction);
+
+        return transaction;
     }
 
     async getTransaction(transactionId: number) {

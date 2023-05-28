@@ -22,6 +22,9 @@ export class TransactionItem extends BaseEntity {
     @Column({ name: 'is_food_cooked', default: false })
     isCooked!: boolean;
 
+    @Column()
+    notes!: string;
+
     @ManyToOne(() => Transaction)
     @JoinColumn({ name: 'id_transaction' })
     transaction!: Transaction;

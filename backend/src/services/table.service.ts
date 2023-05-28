@@ -17,7 +17,7 @@ export class TableService {
 
         const tables = await TableMerchant.find({
             where: { merchantId },
-            relations: { transaction: true }
+            relations: { transaction: { transactionItem: { food: { foodCategory: true } } } }
         });
 
         return tables;
@@ -30,7 +30,7 @@ export class TableService {
 
         const table = await TableMerchant.findOne({
             where: { tableId },
-            relations: { transaction: true }
+            relations: { transaction: { transactionItem: { food: { foodCategory: true } } } }
         });
 
         if (!table) {

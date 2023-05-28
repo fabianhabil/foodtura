@@ -1,5 +1,10 @@
+import api from '@/api/axios-instance';
+import ConfirmedCartMenu from '@/components/atoms/Store/ConfirmedCartMenu/ConfirmedCartMenu';
 import FoodCartMenu from '@/components/atoms/Store/FoodCartMenu/FoodCartMenu';
+import ToastError from '@/components/atoms/Toast/ToastError';
+import ToastSuccess from '@/components/atoms/Toast/ToastSuccess';
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
+import type { FoodCartType } from '@/types/store';
 import { Box, Button, Divider, Grid, Modal, Typography } from '@mui/material';
 import { useContext } from 'react';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
@@ -12,18 +17,90 @@ const CartModal = () => {
         cart,
         confirmedCart,
         storeInfo: { config },
-        removeItemFromCart
+        storeInfo,
+        removeItemFromCart,
+        transaction,
+        table,
+        setConfirmedCart,
+        setCart,
+        setTransaction
     } = useContext(StoreContext)!;
 
     const closeModal = () => setOpenCart(() => false);
+
+    const makeOrder = async () => {
+        try {
+            let newOrder = false;
+            let newTransactionId = transaction.transactionId;
+            if (transaction.transactionId === -1) {
+                newOrder = true;
+                newTransactionId = await createTransactions();
+            }
+            await addItemToTransaction(newOrder, newTransactionId);
+        } catch (e) {
+            console.log(e);
+            ToastError('Server Error!');
+        }
+    };
+
+    const createTransactions = async (): Promise<number> => {
+        try {
+            const response = await api.post('/transaction/create', {
+                merchantId: storeInfo.merchantId,
+                tableMerchantId: table.tableId
+            });
+            if (response) {
+                setTransaction(() => response.data.data.transaction);
+                return Number(response.data.data.transaction.transactionId);
+            }
+        } catch (e) {
+            console.log(e);
+            ToastError('Server Error!');
+            return -1;
+        }
+        return -1;
+    };
+
+    const addItemToTransaction = async (newOrder: boolean, newTransactionId: number) => {
+        try {
+            const foods: FoodCartType[] = [...cart];
+            if (newOrder) {
+                foods.map((_, index) => {
+                    foods[index].transactionId = newTransactionId;
+                });
+            }
+            console.log(foods);
+            const response = await api.post('/transaction/transactionitem/create', { foods });
+            if (response) {
+                await getNewTransactionItem(newTransactionId);
+            }
+        } catch (e) {
+            console.log(e);
+            ToastError('Server Error!');
+        }
+    };
+
+    const getNewTransactionItem = async (newTransactionId: number) => {
+        try {
+            const response = await api.get(`/transaction/get/${newTransactionId}`);
+            if (response) {
+                setConfirmedCart(() => response.data.data.transaction.transactionItem);
+                setCart(() => []);
+                ToastSuccess('Order success!');
+            }
+        } catch (e) {
+            console.log(e);
+            ToastError('Server Error!');
+        }
+    };
 
     return (
         <>
             <Modal
                 open={openCart}
                 onClose={closeModal}
-                aria-labelledby='modal-modal-title'
-                aria-describedby='modal-modal-description'
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
             >
                 <Box
                     sx={{
@@ -39,12 +116,12 @@ const CartModal = () => {
                 >
                     <Grid
                         container
-                        direction='column'
+                        direction="column"
                         sx={{ maxHeight: '80vh', overflowY: 'auto', overflowX: 'hidden' }}
                         spacing={3}
                     >
                         <Grid item>
-                            <Grid container direction='row' justifyContent='space-between' alignItems='center'>
+                            <Grid container direction="row" justifyContent="space-between" alignItems="center">
                                 <Grid item>
                                     <Typography sx={{ fontSize: '20px' }}>Your Cart</Typography>
                                 </Grid>
@@ -57,7 +134,7 @@ const CartModal = () => {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Grid container direction='column' spacing={2}>
+                            <Grid container direction="column" spacing={2}>
                                 {cart.length === 0 ? (
                                     <>
                                         <Grid item sx={{ textAlign: 'center' }}>
@@ -92,6 +169,7 @@ const CartModal = () => {
                                                         opacity: 0.8
                                                     }
                                                 }}
+                                                onClick={makeOrder}
                                             >
                                                 Confirm Order
                                             </Button>
@@ -106,7 +184,7 @@ const CartModal = () => {
                                     <Divider sx={{ background: 'black' }} />
                                 </Grid>
                                 <Grid item>
-                                    <Grid container direction='row' justifyContent='space-between' alignItems='center'>
+                                    <Grid container direction="row" justifyContent="space-between" alignItems="center">
                                         <Grid item>
                                             <Typography sx={{ fontSize: '20px' }}>Your Confirmed Purchase</Typography>
                                         </Grid>
@@ -121,7 +199,7 @@ const CartModal = () => {
                                 {confirmedCart.map((data, index) => {
                                     return (
                                         <Grid item key={index} container>
-                                            <FoodCartMenu config={config} data={data} index={index} />
+                                            <ConfirmedCartMenu config={config} data={data} index={index} />
                                         </Grid>
                                     );
                                 })}

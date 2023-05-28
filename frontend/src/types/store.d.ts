@@ -4,11 +4,16 @@ import { type FoodType as FoodTypeStore } from '@/types/dashboard';
 export interface StoreContextType {
     storeInfo: StoreInfoType;
     cart: FoodCartType[];
-    confirmedCart: FoodCartType[];
+    confirmedCart: TransactionItem[];
     addItemToCart: (food: FoodTypeStore, qty: number, notes: string) => void;
     openCart: boolean;
     setOpenCart: Dispatch<SetStateAction<boolean>>;
     removeItemFromCart: (index: number) => void;
+    transaction: TransactionType;
+    table: TableType;
+    setConfirmedCart: Dispatch<SetStateAction<TransactionItem[]>>;
+    setCart: Dispatch<SetStateAction<FoodCartType[]>>;
+    setTransaction: Dispatch<SetStateAction<TransactionType>>;
 }
 
 export interface StoreInfoType {
@@ -53,4 +58,29 @@ export interface FoodCartType extends FoodType {
     quantity: number;
     notes: string;
     price: number;
+    transactionId: number;
+    foodId: number;
+}
+
+export interface TableType {
+    tableId: string;
+    name: string;
+    size: number;
+}
+
+export interface TransactionType {
+    transactionId: number;
+    createdAt: string;
+    totalPrice: number | null;
+    status: number;
+    tableMerchantId: string;
+    transactionItem: TransactionItem[];
+}
+
+export interface TransactionItem {
+    transactionItemId: number;
+    quantity: number;
+    price: number;
+    food: FoodTypeStore;
+    notes: string;
 }

@@ -61,8 +61,8 @@ const Navbar = (props: any) => {
                                         <FiMenu style={{ color: config.thirdColor }} size={'28px'} />
                                     </IconButton>
                                 </Grid>
-                                <Grid item>
-                                    {pathRouteList.length !== 1 ? (
+                                {pathRouteList.length !== 1 && config.logoPhotoPath !== '' ? (
+                                    <Grid item>
                                         <Image
                                             alt="logo"
                                             src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${config.logoPhotoPath}`}
@@ -71,8 +71,8 @@ const Navbar = (props: any) => {
                                             sizes="100%"
                                             style={{ width: 'auto', height: '100%', maxHeight: '80px' }}
                                         />
-                                    ) : null}
-                                </Grid>
+                                    </Grid>
+                                ) : null}
                                 {pathRouteList.length > 2 ? (
                                     <Grid item>
                                         <IconButton
