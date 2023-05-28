@@ -1,19 +1,19 @@
 import hexToRgbA from '@/helper/hexToRGBA';
-import type { FoodCartType, StoreConfigType } from '@/types/store';
+import type { StoreConfigType, TransactionItem } from '@/types/store';
 import { Grid, IconButton, Typography } from '@mui/material';
 import Image from 'next/image';
 import { CiHeart } from 'react-icons/ci';
 import { GiChiliPepper } from 'react-icons/gi';
 import { GrFormClose } from 'react-icons/gr';
 
-const FoodCartMenu = ({
+const ConfirmedCartMenu = ({
     data,
     config,
     render,
     index,
     removeItemFromCart
 }: {
-    data: FoodCartType;
+    data: TransactionItem;
     config: StoreConfigType;
     render?: boolean;
     index: number;
@@ -60,7 +60,7 @@ const FoodCartMenu = ({
                         height={0}
                         priority={true}
                         sizes="50%"
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${data.foodPhotoPath}`}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${data.food.foodPhotoPath}`}
                         style={{
                             height: '40px',
                             width: '40px',
@@ -84,15 +84,15 @@ const FoodCartMenu = ({
                                             fontSize: '14px'
                                         }}
                                     >
-                                        {data.name} ({data.quantity} pcs)
+                                        {data.food.name} ({data.quantity} pcs)
                                     </Typography>
                                 </Grid>
-                                {data.isSpicy === true ? (
+                                {data.food.isSpicy === true ? (
                                     <Grid item>
                                         <GiChiliPepper style={{ verticalAlign: 'middle' }} />
                                     </Grid>
                                 ) : null}
-                                {data.isMerchantFavorite === true ? (
+                                {data.food.isMerchantFavorite === true ? (
                                     <Grid item>
                                         <CiHeart style={{ verticalAlign: 'middle' }} />
                                     </Grid>
@@ -129,4 +129,4 @@ const FoodCartMenu = ({
     );
 };
 
-export default FoodCartMenu;
+export default ConfirmedCartMenu;

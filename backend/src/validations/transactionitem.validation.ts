@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsNumber } from 'class-validator';
+import { IsArray, IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class TransactionItemDTO {
     @IsArray()
@@ -17,6 +17,9 @@ export class FoodDTO {
 
     @IsNumber()
     foodId!: number;
+
+    @IsString()
+    notes!: string;
 }
 
 export class FoodEditDTO extends FoodDTO {

@@ -39,7 +39,6 @@ const Restaurant = () => {
 
     useEffect(() => {
         if (userData?.merchant?.merchantId !== '') {
-            console.log(userData?.merchant?.merchantId);
             getConfig();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

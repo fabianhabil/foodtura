@@ -48,7 +48,6 @@ const Menu = () => {
         try {
             const response = await api.get(`/food/get/${storeInfo.merchantId}`);
             if (response) {
-                console.log(response);
                 setFood(() => response.data.data.food);
                 setLoading(() => false);
             }
@@ -74,7 +73,6 @@ const Menu = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [storeInfo]);
-    console.log(foodCategory);
 
     return (
         <>
@@ -180,7 +178,7 @@ const Menu = () => {
                             {returnMenu(food, selectedSort)
                                 .filter(
                                     (data) =>
-                                        data?.foodCategoryId === foodCategory[Number(selectedCategory)].foodCategoryId
+                                        data?.foodCategoryId === foodCategory[Number(selectedCategory)]?.foodCategoryId
                                 )
                                 .filter(
                                     (data) =>

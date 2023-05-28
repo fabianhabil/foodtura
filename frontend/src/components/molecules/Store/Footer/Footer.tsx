@@ -28,17 +28,19 @@ const Footer = () => {
                         alignItems="stretch"
                     >
                         <Grid item container direction="column" spacing={1} xs={3} alignItems="center">
-                            <Grid item>
-                                <Image
-                                    width={0}
-                                    height={0}
-                                    sizes="100%"
-                                    style={{ maxWidth: '100px', width: '100%', height: 'auto' }}
-                                    src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${config.logoPhotoPath}`}
-                                    alt="logo-restoran"
-                                    crossOrigin="anonymous"
-                                />
-                            </Grid>
+                            {config.logoPhotoPath !== '' ? (
+                                <Grid item>
+                                    <Image
+                                        width={0}
+                                        height={0}
+                                        sizes="100%"
+                                        style={{ maxWidth: '100px', width: '100%', height: 'auto' }}
+                                        src={`${process.env.NEXT_PUBLIC_API_URL}/public/images/${config.logoPhotoPath}`}
+                                        alt="logo-restoran"
+                                        crossOrigin="anonymous"
+                                    />
+                                </Grid>
+                            ) : null}
                         </Grid>
                         <Grid item container direction="column" spacing={1} xs={4}>
                             <Grid item>

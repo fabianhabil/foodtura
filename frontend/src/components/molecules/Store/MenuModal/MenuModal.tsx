@@ -10,6 +10,7 @@ const MenuModal = ({ open, handleClose, menu }: { open: boolean; handleClose: ()
         storeInfo: { config },
         addItemToCart
     } = useContext(StoreContext)!;
+
     const [quantity, setQuantity] = useState<number>(0);
     const [note, setNote] = useState<string>('');
 

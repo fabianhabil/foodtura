@@ -12,9 +12,9 @@ export class TransactionController {
 
     @Post('/create')
     async create(@Res() res: Response, @Body() dto: CreateTransactionDTO) {
-        await this.transactionService.createTransaction(dto);
+        const transaction = await this.transactionService.createTransaction(dto);
 
-        return sendResponse(res, { message: 'successfully created transaction!' });
+        return sendResponse(res, { data: { transaction }, message: 'successfully created transaction!' });
     }
 
     @Get('/get/:transactionId')
