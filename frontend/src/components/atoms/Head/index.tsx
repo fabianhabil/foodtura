@@ -16,7 +16,7 @@ function Head({ title, description, ogImage, override = false, structuredData = 
 
             <link rel="canonical" href={currentUrl} />
 
-            <meta property="og:image" content={`${getHost()}ogImage`} />
+            <meta property="og:image" content={`${getHost() + ogImage}`} />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
             <meta property="og:image:alt" content={`Image with "${title}" text.`} />
