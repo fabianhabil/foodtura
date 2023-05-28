@@ -1,3 +1,5 @@
+import type { ReactElement, ComponentProps } from 'react';
+
 export interface DashboardContextType {
     isAuthenticated: boolean;
     loading: boolean;
@@ -12,6 +14,13 @@ export interface UserRegisterType {
     email: string;
     password: string;
     confirmPassword: string;
+}
+
+export interface TableDataType {
+    name: string;
+    size: number;
+    merchantId: string;
+    tableId: string;
 }
 
 export interface UserDataType {
@@ -42,6 +51,12 @@ export interface MerchantType {
         aboutPhotoPath: string | null;
         aboutDescription: string | null;
     };
+}
+
+export interface IOfficerFeaturedList {
+    name: string;
+    redirectPath: string;
+    icon: ReactElement;
 }
 
 export interface MerchantColorType {
