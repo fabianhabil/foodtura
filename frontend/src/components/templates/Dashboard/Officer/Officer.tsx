@@ -1,10 +1,10 @@
-import { Grid, Box, Typography, useRadioGroup } from '@mui/material';
-import { UserIcon } from '@/components/atoms/Global/icons';
+import { Grid, Typography, Button } from '@mui/material';
 import { useRouter } from 'next/router';
 
 import type { IOfficerFeaturedList } from '@/types/dashboard';
-
-interface IOfficerProps {}
+import { BsPeopleFill } from 'react-icons/bs';
+import { TbBrandAirtable, TbToolsKitchen2 } from 'react-icons/tb';
+import { FaCashRegister } from 'react-icons/fa';
 
 function OfficerFeatureList({ props }: { props: IOfficerFeaturedList[] }) {
     const router = useRouter();
@@ -17,23 +17,33 @@ function OfficerFeatureList({ props }: { props: IOfficerFeaturedList[] }) {
     return (
         <>
             {props.map(({ name, redirectPath, icon }) => (
-                <Box
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
+                <Button
+                    sx={{
+                        backgroundColor: 'white',
+                        borderRadius: '24px',
+                        '&:hover': {
+                            backgroundColor: 'white',
+                            opacity: 0.8
+                        },
+                        p: 4,
+                        py: 3
+                    }}
                     onClick={() => handleOnClick(redirectPath)}
                     key={name}
-                    sx={boxStyle}
                 >
-                    <div>{icon}</div>
-                    <Typography>{name}</Typography>
-                </Box>
+                    <Grid container direction="column">
+                        <Grid item>{icon}</Grid>
+                        <Grid item>
+                            <Typography sx={{ color: '#0e2979', fontWeight: 600, fontSize: '24px' }}>{name}</Typography>
+                        </Grid>
+                    </Grid>
+                </Button>
             ))}
         </>
     );
 }
 
-const Officer: React.FC<IOfficerProps> = () => {
+const Officer = () => {
     return (
         <>
             <Grid
@@ -50,33 +60,27 @@ const Officer: React.FC<IOfficerProps> = () => {
     );
 };
 
-export default Officer;
-
-const boxStyle = {
-    maxHeight: '346px',
-    minHeight: '160px',
-    minWidth: '200px',
-    textAlign: 'center',
-    background: 'white',
-    borderRadius: '25px',
-    columnGap: '0px',
-    cursor: 'pointer'
-};
-
 const officerFeaturedList = [
     {
         name: 'Employees',
         redirectPath: '/employee',
-        icon: <UserIcon props={{ style: { width: 80, height: 80 } }} />
+        icon: <BsPeopleFill style={{ color: '#D9D9D9', fontWeight: 'bold' }} size={'200px'} />
     },
     {
         name: 'Table',
         redirectPath: '/table',
-        icon: <UserIcon props={{ style: { width: 80, height: 80 } }} />
+        icon: <TbBrandAirtable style={{ color: '#D9D9D9', fontWeight: 'bold' }} size={'200px'} />
     },
     {
         name: 'Cashier',
         redirectPath: '/cashier',
-        icon: <UserIcon props={{ style: { width: 80, height: 80 } }} />
+        icon: <FaCashRegister style={{ color: '#D9D9D9', fontWeight: 'bold' }} size={'200px'} />
+    },
+    {
+        name: 'Kitchen',
+        redirectPath: '/kitchen',
+        icon: <TbToolsKitchen2 style={{ color: '#D9D9D9', fontWeight: 'bold' }} size={'200px'} />
     }
 ];
+
+export default Officer;

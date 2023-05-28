@@ -1,7 +1,5 @@
-import api from '@/api/axios-instance';
 import ToastSuccess from '@/components/atoms/Toast/ToastSuccess';
 import type { DashboardContextType, UserDataType } from '@/types/dashboard';
-import { isAxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { createContext, useState } from 'react';
 
@@ -39,21 +37,10 @@ const DashboardContextProvider: React.FC<DashboardContextProps> = ({ children })
 
     const logout = async () => {
         localStorage.removeItem('user-data');
-        try {
-            const response = await api.delete('/auth/logout');
-            if (response) {
-                ToastSuccess('Logout Success!');
-                setTimeout(() => {
-                    router.reload();
-                }, 500);
-            }
-        } catch (e) {
-            if (isAxiosError(e)) {
-                console.log(e);
-            } else {
-                console.log(e);
-            }
-        }
+        ToastSuccess('Logout Success!');
+        setTimeout(() => {
+            router.reload();
+        }, 500);
     };
 
     const value = { isAuthenticated, loading, userData, getUserData, isLoggedIn, logout };

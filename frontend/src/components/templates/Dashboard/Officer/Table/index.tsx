@@ -4,32 +4,18 @@ import { Button, Divider, Grid } from '@mui/material';
 import api from '@/api/axios-instance';
 import { useContext, useEffect, useState } from 'react';
 import { DashboardContext } from '@/contexts/DashboardContext/DashboardContext';
-import { TableDataType } from '@/types/dashboard';
+import type { TableDataType } from '@/types/dashboard';
 
 const Table: React.FC = () => {
     const { userData } = useContext(DashboardContext)!;
     const [tableList, setTableList] = useState<TableDataType[] | []>([]);
-    const [createNewTable, setCreateNewTable] = useState<boolean | null>(null);
-
-    const handleCreateNewTable = () => {
-        setCreateNewTable(!createNewTable);
-        handlePushNewTable();
-    };
-
-    const handlePushNewTable = () => {
-        const dummyTable = {
-            name: 'create',
-            size: 0,
-            merchantId: '',
-            tableId: ''
-        };
-        setTableList([...tableList, dummyTable]);
-    };
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
     useEffect(() => {
         if (userData?.merchant?.merchantId !== '') {
             getAllMerchantTable();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData]);
 
     const getAllMerchantTable = async () => {
@@ -50,26 +36,20 @@ const Table: React.FC = () => {
                         justifyContent: 'flex-end',
                         alignItems: 'center',
                         gap: '12px',
-                        marginLeft: 6,
                         marginY: 2
                     }}
                 >
-                    <Button variant="contained" onClick={handleCreateNewTable}>
+                    <Button variant="contained" onClick={() => setOpenModal(true)}>
                         Create New Table
                     </Button>
-
-                    {/* Soon */}
-                    {/*<SearchBarTable items={tableList} />*/}
                 </Grid>
             </Grid>
 
             <Divider sx={{ marginY: 2 }} />
 
-            <Grid container direction="column" gap={4}>
-                <Grid container justifyContent="space-around">
-                    <ListTable items={tableList} />
-                    <AvailableTable total={tableList.length} remaining={tableList.length} />
-                </Grid>
+            <Grid container direction="row" gap={4} justifyContent="space-between">
+                <ListTable items={tableList} openModal={openModal} setOpenModal={setOpenModal} />
+                <AvailableTable total={tableList.length} remaining={tableList.length} />
             </Grid>
         </>
     );

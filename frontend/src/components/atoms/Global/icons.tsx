@@ -1,8 +1,8 @@
 import type { ComponentProps } from 'react';
 
-type IconProps = {
+interface IconProps {
     props?: ComponentProps<'svg'>;
-};
+}
 
 export function UserIcon({ props }: IconProps) {
     return (

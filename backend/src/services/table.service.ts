@@ -17,7 +17,8 @@ export class TableService {
 
         const tables = await TableMerchant.find({
             where: { merchantId },
-            relations: { transaction: { transactionItem: { food: { foodCategory: true } } } }
+            relations: { transaction: { transactionItem: { food: { foodCategory: true } } } },
+            order: { name: 'ASC' }
         });
 
         return tables;
@@ -30,7 +31,8 @@ export class TableService {
 
         const table = await TableMerchant.findOne({
             where: { tableId },
-            relations: { transaction: { transactionItem: { food: { foodCategory: true } } } }
+            relations: { transaction: { transactionItem: { food: { foodCategory: true } } } },
+            order: { name: 'ASC' }
         });
 
         if (!table) {

@@ -47,6 +47,7 @@ export class TransactionSercice {
         const transaction = await this.getTransaction(transactionId);
 
         transaction.status = dto.status;
+        transaction.totalPrice = dto.totalPrice;
 
         await transaction.save();
     }

@@ -83,10 +83,10 @@ const Menu = () => {
             />
             <CartModal />
             <Grid container direction="column" spacing={2}>
-                <Grid item container direction="row">
+                <Grid item container direction="row" spacing={1}>
                     {foodCategory.map((data, index) => {
                         return (
-                            <Grid item xs key={index} sx={{ width: '100%' }}>
+                            <Grid item xs={4} key={index} sx={{ width: '100%', height: '100%' }}>
                                 <FoodCategoryButton
                                     selectedCategory={selectedCategory}
                                     color={{
