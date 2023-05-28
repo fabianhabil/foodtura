@@ -1,19 +1,27 @@
 import StoreLayout from '@/components/templates/Store/StoreLayout/StoreLayout';
 import { StoreContext } from '@/contexts/StoreContext/StoreContext';
 import { Grid, Typography } from '@mui/material';
-import Head from 'next/head';
+import Head from '@/components/atoms/Head';
 import { useContext } from 'react';
+
+import type { HeadProps } from '@/types/head';
 
 const Home = () => {
     const {
         storeInfo: { config }
     } = useContext(StoreContext)!;
 
+    const restaurantPageSEO: HeadProps = {
+        title: 'restaurant - Find Your restaurant',
+        description:
+            'Order food at your favorite restaurant on Foodtura, after scanning the QR Code on the table, relax and enjoy as the food reaches your hands.',
+        ogImage: '/images/og/og_restaurantpage.png',
+        override: true
+    };
+
     return (
         <>
-            <Head>
-                <title>Foodtura</title>
-            </Head>
+            <Head {...restaurantPageSEO} />
             <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ minHeight: '50vh' }}>
                 <Grid item>
                     <Typography

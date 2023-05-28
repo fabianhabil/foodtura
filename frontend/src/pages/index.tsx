@@ -1,14 +1,22 @@
 import { Grid } from '@mui/material';
-import Head from 'next/head';
+import Head from '@/components/atoms/Head';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import type { HeadProps } from '@/types/head';
+
 const Home = () => {
+    const landingPageSEO: HeadProps = {
+        title: 'Foodtura - Open Table Restaurant',
+        description:
+            'Introducing the dining experience with Foodtura. Make online reservations, read restaurant reviews from diners, and and live access in realtime. Find and book the best restaurants you want to visit. Order Now.',
+        ogImage: '/images/og/og_landingpage.png',
+        override: true
+    };
+
     return (
         <>
-            <Head>
-                <title>Foodtura</title>
-            </Head>
+            <Head {...landingPageSEO} />
             <Grid container direction="column" sx={{ minHeight: '100vh' }} alignItems="center" justifyContent="center">
                 <Grid item>
                     <Image
