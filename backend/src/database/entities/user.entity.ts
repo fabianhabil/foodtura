@@ -1,7 +1,6 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { TrackingEmbed } from './embedded/tracking.embed';
 import { Merchant } from './merchant.entity';
-import { Transaction } from './transaction.entity';
 
 export enum UserRole {
     OWNER,
@@ -34,9 +33,6 @@ export class User extends BaseEntity {
     @ManyToOne(() => Merchant, { nullable: true })
     @JoinColumn({ name: 'id_merchant' })
     merchant!: Merchant;
-
-    @OneToMany(() => Transaction, (transaction) => transaction)
-    transaction!: Transaction[];
 
     toJSON() {
         const cloned = { ...this } as Record<string, unknown>;

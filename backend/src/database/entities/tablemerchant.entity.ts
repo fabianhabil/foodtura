@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Merchant } from './merchant.entity';
+import { Transaction } from './transaction.entity';
 
 @Entity('Table_Merchant')
 export class TableMerchant extends BaseEntity {
@@ -18,4 +19,7 @@ export class TableMerchant extends BaseEntity {
     @ManyToOne(() => Merchant)
     @JoinColumn({ name: 'id_merchant' })
     merchant!: Merchant;
+
+    @OneToMany(() => Transaction, (transaction) => transaction.tableMerchant)
+    transaction!: Transaction[];
 }

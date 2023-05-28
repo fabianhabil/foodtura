@@ -1,54 +1,57 @@
-import { Body, Delete, Get, JsonController, Param, Post, Put, Res, ResponseClassTransformOptions } from "routing-controllers";
-import { Service } from "typedi";
-import { TransactionItemService } from "../../services/transactionitem.service";
-import { Response } from "express";
-import { FoodDTO, TransactionItemDTO } from "../../validations/transactionitem.validation";
-import { sendResponse } from "../../utils/api.util";
+import { Body, Delete, Get, JsonController, Param, Post, Put, Res } from 'routing-controllers';
+import { Service } from 'typedi';
+import { TransactionItemService } from '../../services/transactionitem.service';
+import { Response } from 'express';
+import { FoodEditDTO, TransactionItemDTO } from '../../validations/transactionitem.validation';
+import { sendResponse } from '../../utils/api.util';
 
 @Service()
 @JsonController('/v1/transaction/transactionitem')
-export class TransactionItemController{
+export class TransactionItemController {
     constructor(private readonly transactionItemService: TransactionItemService) {}
 
     @Post('/create')
-    async createTransactionItem(@Res() res: Response, @Body() dto: TransactionItemDTO){
+    async createTransactionItem(@Res() res: Response, @Body() dto: TransactionItemDTO) {
         await this.transactionItemService.createTransactionItem(dto);
 
-        return sendResponse(res, {message: 'Transaction Item created!'});
+        return sendResponse(res, { message: 'Transaction Item created!' });
     }
 
     @Get('/find/:transactionItemId')
-    async getTransactionItem(@Res() res: Response, @Param('transactionItemId') transactionItemId: number){
+    async getTransactionItem(@Res() res: Response, @Param('transactionItemId') transactionItemId: number) {
         const transactionItem = await this.transactionItemService.getTransactionItem(transactionItemId);
 
         return sendResponse(res, {
             message: 'Transaction Item found!',
-            data: {transactionItem}
+            data: { transactionItem }
         });
     }
 
     @Get('/:transactionId')
-    async getAllTransactionItem(@Res() res: Response, @Param('transactionId') transactionId: number){
+    async getAllTransactionItem(@Res() res: Response, @Param('transactionId') transactionId: number) {
         const transactionItems = await this.transactionItemService.getAllTransactionItem(transactionId);
 
         return sendResponse(res, {
             message: 'Showing all transaction!',
-            data: {transactionItems}
+            data: { transactionItems }
         });
     }
 
     @Delete('/delete/:transactionItem')
-    async deleteTransactionItem(@Res() res: Response, @Param('transactionItemId') transactionItemId: number){
+    async deleteTransactionItem(@Res() res: Response, @Param('transactionItemId') transactionItemId: number) {
         await this.transactionItemService.deleteTransactionItem(transactionItemId);
 
-        return sendResponse(res, {message: 'Transaction item successfully deleted!'});
+        return sendResponse(res, { message: 'Transaction item successfully deleted!' });
     }
 
     @Put('/edit/:transactionItemId')
-    async editTransactionItemId(@Res() res: Response, @Param('transactionItemId') transactionItemId: number, @Body() dto: FoodDTO){
+    async editTransactionItemId(
+        @Res() res: Response,
+        @Param('transactionItemId') transactionItemId: number,
+        @Body() dto: FoodEditDTO
+    ) {
         await this.transactionItemService.editTransactionItem(dto, transactionItemId);
 
-        return sendResponse(res, {message: 'Transaction Item Successfully edited'});
-
+        return sendResponse(res, { message: 'Transaction Item Successfully edited' });
     }
 }

@@ -13,10 +13,10 @@ export class TransactionItem extends BaseEntity {
     @Column()
     price!: number;
 
-    @Column({ name: 'id_transaction', select: false })
+    @Column({ name: 'id_transaction' })
     transactionId!: number;
 
-    @Column({ name: 'id_food', select: false })
+    @Column({ name: 'id_food' })
     foodId!: number;
 
     @Column({ name: 'is_food_cooked', default: false })

@@ -1,21 +1,23 @@
-import { Service } from "typedi";
-import { Transaction } from "../database/entities/transaction.entity";
-import { Errors } from "../utils/api.util";
-import { CreateTransactionDTO, EditTransactionDTO } from "../validations/transaction.validation";
+import { Service } from 'typedi';
+import { Transaction } from '../database/entities/transaction.entity';
+import { Errors } from '../utils/api.util';
+import type { CreateTransactionDTO, EditTransactionDTO } from '../validations/transaction.validation';
 
 @Service()
 export class TransactionSercice {
-    async createTransaction(dto:CreateTransactionDTO){
+    async createTransaction(dto: CreateTransactionDTO) {
         const transaction = Transaction.create({
-            ...dto,
-            date: new Date(dto.date)
+            ...dto
         });
 
         await Transaction.save(transaction);
     }
-    
+
     async getTransaction(transactionId: number) {
-        const transaction = await Transaction.findOne({ where: { transactionId }, relations: { transactionItem: true } });
+        const transaction = await Transaction.findOne({
+            where: { transactionId },
+            relations: { transactionItem: { food: { foodCategory: true } } }
+        });
 
         if (!transaction) {
             throw Errors.TRANSACTION_NOT_FOUND;
@@ -25,24 +27,25 @@ export class TransactionSercice {
     }
 
     async getAllTransaction(merchantId: string) {
-        const transactions = await Transaction.find({ relations: { transactionItem: true }, where: {merchantId} });
+        const transactions = await Transaction.find({
+            where: { merchantId },
+            relations: { transactionItem: { food: { foodCategory: true } } }
+        });
 
         return transactions;
     }
 
-    async deleteTransaction(transactionId: number){
+    async deleteTransaction(transactionId: number) {
         const transaction = await this.getTransaction(transactionId);
 
         await Transaction.remove(transaction);
     }
 
-    async editTransaction(dto: EditTransactionDTO, transactionId: number){
+    async editTransaction(dto: EditTransactionDTO, transactionId: number) {
         const transaction = await this.getTransaction(transactionId);
 
         transaction.status = dto.status;
 
         await transaction.save();
     }
-
-    
 }
