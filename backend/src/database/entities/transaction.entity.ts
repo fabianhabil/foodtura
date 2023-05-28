@@ -1,12 +1,20 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { dateTransformer } from '../../utils/date.util';
+import {
+    BaseEntity,
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn
+} from 'typeorm';
 import { Merchant } from './merchant.entity';
-import { User } from './user.entity';
 import { TransactionItem } from './transactionitem.entity';
+import { TableMerchant } from './tablemerchant.entity';
 
 export enum TransactionStatus {
-    Paid,
     Not_Paid,
+    Paid,
     Cancelled
 }
 
@@ -15,10 +23,10 @@ export class Transaction extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id_transaction' })
     transactionId!: number;
 
-    @Column({ transformer: dateTransformer })
-    date!: Date;
+    @CreateDateColumn({ name: 'date' })
+    createdAt!: Date;
 
-    @Column({ name: 'total_price' })
+    @Column({ name: 'total_price', nullable: true })
     totalPrice!: number;
 
     @Column({ type: 'enum', enum: TransactionStatus, default: TransactionStatus.Not_Paid })
@@ -27,17 +35,17 @@ export class Transaction extends BaseEntity {
     @Column({ name: 'id_merchant', select: false })
     merchantId!: string;
 
-    @Column({ name: 'id_officer', select: false })
-    officerId!: number;
+    @Column('uuid', { name: 'id_table_merchant' })
+    tableMerchantId!: string;
+
+    @ManyToOne(() => TableMerchant)
+    @JoinColumn({ name: 'id_table_merchant' })
+    tableMerchant!: TableMerchant;
 
     @ManyToOne(() => Merchant, (merchant) => merchant)
     @JoinColumn({ name: 'id_merchant' })
     merchant!: Merchant;
 
-    @ManyToOne(() => User, (user) => user)
-    @JoinColumn({ name: 'id_officer' })
-    officer!: User;
-
-    @OneToMany(() => TransactionItem, (transactionItem) => transactionItem)
+    @OneToMany(() => TransactionItem, (transactionItem) => transactionItem.transaction)
     transactionItem!: TransactionItem[];
 }

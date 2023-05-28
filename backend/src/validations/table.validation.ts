@@ -1,17 +1,17 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsString, IsUUID } from 'class-validator';
 
-export class CreateTableDto{
+export class CreateTableDto {
     @IsString()
     name!: string;
 
     @IsNumber()
     size!: number;
 
-    @IsString()
+    @IsUUID()
     merchantId!: string;
 }
 
-export class EditTableDto{
+export class EditTableDto {
     @IsString()
     name!: string;
 

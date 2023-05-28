@@ -1,21 +1,15 @@
-import { IsDateString, IsEnum, IsNumber, IsString } from "class-validator";
-import { TransactionStatus } from "../database/entities/transaction.entity";
+import { IsEnum, IsUUID } from 'class-validator';
+import { TransactionStatus } from '../database/entities/transaction.entity';
 
-export class CreateTransactionDTO{
-    @IsDateString()
-    date!: Date;
-
-    @IsNumber()
-    totalPrice!: number;
-
-    @IsString()
+export class CreateTransactionDTO {
+    @IsUUID()
     merchantId!: string;
 
-    @IsNumber()
-    officerId!: number;
+    @IsUUID()
+    tableMerchantId!: string;
 }
 
-export class EditTransactionDTO{
+export class EditTransactionDTO {
     @IsEnum(TransactionStatus)
     status!: TransactionStatus;
 }

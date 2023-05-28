@@ -11,13 +11,27 @@ export class TableService {
     }
 
     async getAll(merchantId: string) {
-        const tables = await TableMerchant.findBy({ merchantId });
+        if (merchantId.length !== 36) {
+            throw Errors.UUID_NOT_VALID;
+        }
+
+        const tables = await TableMerchant.find({
+            where: { merchantId },
+            relations: { transaction: true }
+        });
 
         return tables;
     }
 
     async get(tableId: string) {
-        const table = await TableMerchant.findOneBy({ tableId });
+        if (tableId.length !== 36) {
+            throw Errors.UUID_NOT_VALID;
+        }
+
+        const table = await TableMerchant.findOne({
+            where: { tableId },
+            relations: { transaction: true }
+        });
 
         if (!table) {
             throw Errors.TABLE_NOT_FOUND;
@@ -27,12 +41,20 @@ export class TableService {
     }
 
     async delete(tableId: string) {
+        if (tableId.length !== 36) {
+            throw Errors.UUID_NOT_VALID;
+        }
+
         const table = await this.get(tableId);
 
         await TableMerchant.remove(table);
     }
 
     async edit(tableId: string, { name, size }: EditTableDto) {
+        if (tableId.length !== 36) {
+            throw Errors.UUID_NOT_VALID;
+        }
+
         const table = await this.get(tableId);
 
         table.name = name;
