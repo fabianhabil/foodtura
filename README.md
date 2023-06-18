@@ -7,6 +7,6 @@
 4. Diandra Jade Yomanda Prajoga - 2501964900
 
 [Application Demo](https://youtu.be/Wx9ysO7Ba1Y) <br/>
-[Documentation]() <br/>
+[Documentation](https://drive.google.com/file/d/1ETPGWfOkWXfRVC9nUmlNu36fy-iSORea/view?usp=sharing) <br/>
 [PKM-KC Proposal](https://drive.google.com/file/d/1BPLxSADAIzPxfX4LxzGq1IxoorzR9DB3/view?usp=sharing) <br/>
 [Final Report]() <br/>
